@@ -10,4 +10,13 @@ public class Dish extends AbstractNamedEntity{
         super(id, name);
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
