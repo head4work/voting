@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class RestaurantTo {
+    private String name;
     private Integer id;
 
     private LocalDateTime created;
@@ -18,7 +19,8 @@ public class RestaurantTo {
     public RestaurantTo() {
     }
 
-    public RestaurantTo(int id, LocalDateTime created, List<Dish> menu, Integer votes) {
+    public RestaurantTo(String name, int id, LocalDateTime created, List<Dish> menu, Integer votes) {
+        this.name = name;
         this.id = id;
         this.created = created;
         this.menu = menu;
