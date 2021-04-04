@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 public class MainPlay {
     private static final InMemoryRestaurant repository = new InMemoryRestaurant();
-    private static final InMemoryUser user = new InMemoryUser();
     private static final InMemoryVote vote = new InMemoryVote();
 
     private static final Restaurant restaurant1 = new Restaurant(null, "McDonalds", LocalDateTime.of(2020, 3, 1, 2, 3, 0),
@@ -38,26 +37,9 @@ public class MainPlay {
         vote.saveVote(restaurant3,3);
         getSortedByVotesNew(repository.getAllSorted(1)).forEach(System.out::println);
 
-        /*repository.getAllSorted(1).forEach(System.out::println);
-        vote(restaurant2, 1);
-        vote(restaurant2, 2);
-        vote(restaurant1, 2);
-
-        getSortedByVotes(repository.getAllSorted(1)).forEach(System.out::println);
-
-        revokeVote(2);
-        vote(restaurant1,2);
-
-        getSortedByVotes(repository.getAllSorted(1)).forEach(System.out::println);*/
-
     }
 
- /*   private static List<RestaurantTo> getSortedByVotes(List<Restaurant> list) {
-        return list.stream().map(MainPlay::createTo)
-                .sorted(Comparator.comparing(RestaurantTo::getVotes).reversed())
-                .collect(Collectors.toList());
 
-    }*/
 
     private static List<RestaurantTo> getSortedByVotesNew(List<Restaurant> list) {
         return list.stream().map(MainPlay::castTo)
@@ -66,48 +48,6 @@ public class MainPlay {
 
     }
 
- /*   private static void vote(Restaurant r, int userId) {
-        if (user.hasVote(userId, LocalDate.now())) {
-            Set<Integer> votedUsers = r.getVotedUsers();
-            votedUsers.add(userId);
-            r.setVotedUsers(votedUsers);
-            user.banVote(r, userId, LocalDate.now());
-        } else {
-            System.out.println("u have voted already");
-        }
-    }
-*/
- /*   private static void revokeVote(int userId) {
-        if (!user.hasVote(userId, LocalDate.now())) {
-            if (LocalDateTime.now().getHour() < 20) {
-                Integer revokedRestaurantId = user.getRevokedRestaurantId(userId, LocalDate.now());
-                user.resetVote(userId, LocalDate.now());
-                removeVote(userId, revokedRestaurantId);
-            } else {
-                System.out.println("too late to change mind");
-            }
-        } else {
-            System.out.println("u didnt vote yet");
-        }
-
-    }*/
-
-   /* private static void removeVote(int userId, Integer revokedRestaurantId) {
-        Restaurant r = repository.get(revokedRestaurantId, userId);
-        Set<Integer> votedUsers = r.getVotedUsers();
-        votedUsers.remove(userId);
-        r.setVotedUsers(votedUsers);
-    }
-
-
-    private boolean dateCheck(Restaurant r) {
-        return r.getCreated().getDayOfYear() == LocalDateTime.now().getDayOfYear();
-    }*/
-
-   /* private static RestaurantTo createTo(Restaurant restaurant) {
-        return new RestaurantTo(restaurant.getName(), restaurant.getId(), restaurant.getCreated(), restaurant.getMenu(), countVotes(restaurant));
-    }
-*/
     private static RestaurantTo castTo(Restaurant restaurant) {
         return new RestaurantTo(restaurant.getName(), restaurant.getId(), restaurant.getCreated(), restaurant.getMenu(),
                 countVotesNew(restaurant));
@@ -118,11 +58,5 @@ public class MainPlay {
                 ? 0 : vote.getAllRestaurantVotes(LocalDate.now()).get(restaurant.getId());
         return (int) votes;
     }
-
-/*
-    private static Integer countVotes(Restaurant restaurant) {
-        return restaurant.getVotedUsers().size();
-    }
-*/
 
 }

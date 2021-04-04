@@ -9,8 +9,6 @@ public class Restaurant extends AbstractNamedEntity{
 
     private List<Dish> menu;
 
-    private Set<Integer> votedUsers = new ConcurrentSkipListSet<>();
-
     public Restaurant() {
     }
 
@@ -42,13 +40,6 @@ public class Restaurant extends AbstractNamedEntity{
         this.menu = menu;
     }
 
-    public Set<Integer> getVotedUsers() {
-        return votedUsers;
-    }
-
-    public void setVotedUsers(Set<Integer> votedUsers) {
-        this.votedUsers = votedUsers;
-    }
 
     @Override
     public String toString() {
