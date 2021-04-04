@@ -1,0 +1,6 @@
+
+*.class
+*.lst
+*.properties
+target/
+
