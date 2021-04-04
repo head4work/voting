@@ -52,12 +52,12 @@ public class MainPlay {
 
     }
 
-    private static List<RestaurantTo> getSortedByVotes(List<Restaurant> list) {
+ /*   private static List<RestaurantTo> getSortedByVotes(List<Restaurant> list) {
         return list.stream().map(MainPlay::createTo)
                 .sorted(Comparator.comparing(RestaurantTo::getVotes).reversed())
                 .collect(Collectors.toList());
 
-    }
+    }*/
 
     private static List<RestaurantTo> getSortedByVotesNew(List<Restaurant> list) {
         return list.stream().map(MainPlay::castTo)
@@ -66,7 +66,7 @@ public class MainPlay {
 
     }
 
-    private static void vote(Restaurant r, int userId) {
+ /*   private static void vote(Restaurant r, int userId) {
         if (user.hasVote(userId, LocalDate.now())) {
             Set<Integer> votedUsers = r.getVotedUsers();
             votedUsers.add(userId);
@@ -76,8 +76,8 @@ public class MainPlay {
             System.out.println("u have voted already");
         }
     }
-
-    private static void revokeVote(int userId) {
+*/
+ /*   private static void revokeVote(int userId) {
         if (!user.hasVote(userId, LocalDate.now())) {
             if (LocalDateTime.now().getHour() < 20) {
                 Integer revokedRestaurantId = user.getRevokedRestaurantId(userId, LocalDate.now());
@@ -90,9 +90,9 @@ public class MainPlay {
             System.out.println("u didnt vote yet");
         }
 
-    }
+    }*/
 
-    private static void removeVote(int userId, Integer revokedRestaurantId) {
+   /* private static void removeVote(int userId, Integer revokedRestaurantId) {
         Restaurant r = repository.get(revokedRestaurantId, userId);
         Set<Integer> votedUsers = r.getVotedUsers();
         votedUsers.remove(userId);
@@ -102,12 +102,12 @@ public class MainPlay {
 
     private boolean dateCheck(Restaurant r) {
         return r.getCreated().getDayOfYear() == LocalDateTime.now().getDayOfYear();
-    }
+    }*/
 
-    private static RestaurantTo createTo(Restaurant restaurant) {
+   /* private static RestaurantTo createTo(Restaurant restaurant) {
         return new RestaurantTo(restaurant.getName(), restaurant.getId(), restaurant.getCreated(), restaurant.getMenu(), countVotes(restaurant));
     }
-
+*/
     private static RestaurantTo castTo(Restaurant restaurant) {
         return new RestaurantTo(restaurant.getName(), restaurant.getId(), restaurant.getCreated(), restaurant.getMenu(),
                 countVotesNew(restaurant));
@@ -119,8 +119,10 @@ public class MainPlay {
         return (int) votes;
     }
 
+/*
     private static Integer countVotes(Restaurant restaurant) {
         return restaurant.getVotedUsers().size();
     }
+*/
 
 }
