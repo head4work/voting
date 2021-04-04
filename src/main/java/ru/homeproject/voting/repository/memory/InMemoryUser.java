@@ -11,30 +11,38 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryUser implements UserRepository {
 
-    private final static Map<Integer, Map<LocalDate, Boolean>> votes = new ConcurrentHashMap<>();
-    private final static Map<LocalDate, Boolean> dateVotes = new ConcurrentHashMap<>();
-    private final static Map<LocalDate, Boolean> dateVotes1 = new ConcurrentHashMap<>();
-    private final static Map<LocalDate, Boolean> dateVotes2 = new ConcurrentHashMap<>();
+    private final static Map<Integer, Map<LocalDate, Integer>> votes = new ConcurrentHashMap<>();
+    private final static Map<LocalDate, Integer> dateVotes = new ConcurrentHashMap<>();
+    private final static Map<LocalDate, Integer> dateVotes1 = new ConcurrentHashMap<>();
+    private final static Map<LocalDate, Integer> dateVotes2 = new ConcurrentHashMap<>();
 
     static {
-        dateVotes.put(LocalDate.now(), true);
-        dateVotes1.put(LocalDate.now(), true);
-        dateVotes2.put(LocalDate.now(), true);
+        dateVotes.put(LocalDate.now(), 0);
+        dateVotes1.put(LocalDate.now(), 0);
+        dateVotes2.put(LocalDate.now(), 0);
         votes.put(1, dateVotes);
         votes.put(2, dateVotes1);
         votes.put(3, dateVotes2);
     }
 
     public boolean hasVote(int userId, LocalDate date) {
-        Map<LocalDate, Boolean> dateBooleanMap = votes.get(userId);
-        return dateBooleanMap.get(date);
+        Map<LocalDate, Integer> dateBooleanMap = votes.get(userId);
+        return dateBooleanMap.get(date)==0;
     }
 
-    public void banVote(int userId, LocalDate date) {
-        Map<LocalDate, Boolean> dateMap = votes.get(userId);
-        dateMap.replace(date,true,false);
+    public void banVote(Restaurant r, int userId, LocalDate date) {
+        Map<LocalDate, Integer> dateMap = votes.get(userId);
+        dateMap.replace(date,0,r.getId());
     }
+    public Integer getRevokedRestaurantId(int userId, LocalDate now) {
+        Map<LocalDate, Integer> dateMap = votes.get(userId);
+        return dateMap.get(now);
+    }
+    public void resetVote(int userId, LocalDate date) {
+        Map<LocalDate, Integer> dateMap = votes.get(userId);
 
+        dateMap.computeIfPresent(date, (date1, integer) -> 0);
+    }
     @Override
     public User save(User user) {
         return null;
@@ -59,6 +67,7 @@ public class InMemoryUser implements UserRepository {
     public List<User> getAll() {
         return null;
     }
+
 
 
 }

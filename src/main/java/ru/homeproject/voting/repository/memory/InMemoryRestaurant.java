@@ -12,9 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class InMemoryRestaurant implements RestaurantRepository {
-    private AtomicInteger counter = new AtomicInteger();
-    private Map<Integer, Restaurant> map = new ConcurrentHashMap<>();
-    private Map<Integer,Set<Integer>> restaurantVotes = new ConcurrentHashMap<>();
+    private final AtomicInteger counter = new AtomicInteger();
+    private final Map<Integer, Restaurant> map = new ConcurrentHashMap<>();
 
     @Override
     public Restaurant save(Restaurant restaurant, int userId) {

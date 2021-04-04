@@ -35,6 +35,11 @@ public class MainPlay {
 
         getSortedByVotes(repository.getAllSorted(1)).forEach(System.out::println);
 
+        revokeVote(2);
+        vote(restaurant1,2);
+
+        getSortedByVotes(repository.getAllSorted(1)).forEach(System.out::println);
+
     }
 
     private static List<RestaurantTo> getSortedByVotes(List<Restaurant> list) {
@@ -49,16 +54,18 @@ public class MainPlay {
             Set<Integer> votedUsers = r.getVotedUsers();
             votedUsers.add(userId);
             r.setVotedUsers(votedUsers);
-            user.banVote(userId, LocalDate.now());
+            user.banVote(r, userId, LocalDate.now());
         } else {
             System.out.println("u have voted already");
         }
     }
 
-    private void revokeVote(Restaurant r, int userId) {
+    private static void revokeVote(int userId) {
         if (!user.hasVote(userId, LocalDate.now())) {
-            if (LocalDateTime.now().getHour() < 11) {
-
+            if (LocalDateTime.now().getHour() < 20) {
+                Integer revokedRestaurantId = user.getRevokedRestaurantId(userId, LocalDate.now());
+                user.resetVote(userId,LocalDate.now());
+                removeVote(userId, revokedRestaurantId);
             }else {
                 System.out.println("too late to change mind");
             }
@@ -68,16 +75,14 @@ public class MainPlay {
 
     }
 
-    private void changeVote(Restaurant rToDeleteVote, Restaurant rToAssignVote, int userId) {
-        Set<Integer> votes = rToDeleteVote.getVotedUsers();
-        Set<Integer> votes1 = rToAssignVote.getVotedUsers();
-        if (dateCheck(rToDeleteVote)) {
-            if (votes.contains(userId) && votes1.contains(userId)) {
-                votes.remove(userId);
-            }
-        }
-        throw new IllegalStateException("Its too late to change your mind");
+    private static void removeVote(int userId, Integer revokedRestaurantId) {
+        Restaurant r = repository.get(revokedRestaurantId, userId);
+        Set<Integer> votedUsers = r.getVotedUsers();
+        votedUsers.remove(userId);
+        r.setVotedUsers(votedUsers);
     }
+
+
 
     private boolean dateCheck(Restaurant r) {
         return r.getCreated().getDayOfYear() == LocalDateTime.now().getDayOfYear();
