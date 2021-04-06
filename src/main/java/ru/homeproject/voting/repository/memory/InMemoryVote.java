@@ -1,7 +1,6 @@
 package ru.homeproject.voting.repository.memory;
 
 import ru.homeproject.voting.model.Restaurant;
-import ru.homeproject.voting.model.Vote;
 import ru.homeproject.voting.repository.VoteRepository;
 
 import java.time.LocalDate;
@@ -33,8 +32,9 @@ public class InMemoryVote implements VoteRepository {
     }
 
     @Override
-    public Vote getVote(LocalDate date, int userId) {
-        return null;
+    public Integer getVotes(LocalDate date, int restaurantId) {
+        long aLong = getAllRestaurantVotes(date).get(restaurantId) == null ? 0 : getAllRestaurantVotes(date).get(restaurantId);
+        return (int) aLong;
     }
 
     @Override
@@ -42,19 +42,10 @@ public class InMemoryVote implements VoteRepository {
       return   votes.get(userId).remove(date) != null;
     }
 
-
-
     @Override
     public Map<Integer, Long> getAllRestaurantVotes(LocalDate date) {
         return votes.values().stream()
-                //   .filter(localDateIntegerMap -> localDateIntegerMap.containsKey(date))
-                .map(new Function<Map<LocalDate, Integer>, Integer>() {
-                    @Override
-                    public Integer apply(Map<LocalDate, Integer> localDateIntegerMap) {
-                        return localDateIntegerMap.get(date);
-                    }
-                })
-
+                .map(localDateIntegerMap -> localDateIntegerMap.get(date))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 }

@@ -3,7 +3,7 @@ package ru.homeproject.voting.model;
 import java.util.Date;
 import java.util.Set;
 
-public class User {
+public class User extends AbstractNamedEntity {
     private String email;
 
     private String password;
@@ -15,6 +15,15 @@ public class User {
     private Set<Role> roles;
 
     public User() {
+    }
+
+    public User(Integer id, String name, String email, String password, boolean enabled, Date registered, Set<Role> roles) {
+        super(id, name);
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
+        this.registered = registered;
+        this.roles = roles;
     }
 
     public String getEmail() {

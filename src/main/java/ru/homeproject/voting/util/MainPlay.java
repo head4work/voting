@@ -3,7 +3,6 @@ package ru.homeproject.voting.util;
 import ru.homeproject.voting.model.Dish;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.repository.memory.InMemoryRestaurant;
-import ru.homeproject.voting.repository.memory.InMemoryUser;
 import ru.homeproject.voting.repository.memory.InMemoryVote;
 import ru.homeproject.voting.to.RestaurantTo;
 
@@ -11,7 +10,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MainPlay {
@@ -40,7 +38,6 @@ public class MainPlay {
     }
 
 
-
     private static List<RestaurantTo> getSortedByVotesNew(List<Restaurant> list) {
         return list.stream().map(MainPlay::castTo)
                 .sorted(Comparator.comparing(RestaurantTo::getVotes).reversed())
@@ -48,14 +45,14 @@ public class MainPlay {
 
     }
 
-    private static RestaurantTo castTo(Restaurant restaurant) {
-        return new RestaurantTo(restaurant.getName(), restaurant.getId(), restaurant.getCreated(), restaurant.getMenu(),
-                countVotesNew(restaurant));
+    private static RestaurantTo castTo(Restaurant r) {
+        return new RestaurantTo(r.getName(), r.getId(), r.getCreated(), r.getMenu(),
+                countVotesNew(r));
     }
 
-    private static Integer countVotesNew(Restaurant restaurant) {
-        long votes = vote.getAllRestaurantVotes(LocalDate.now()).get(restaurant.getId()) == null
-                ? 0 : vote.getAllRestaurantVotes(LocalDate.now()).get(restaurant.getId());
+    private static Integer countVotesNew(Restaurant r) {
+        long votes = vote.getAllRestaurantVotes(LocalDate.now()).get(r.getId()) == null
+                ? 0 : vote.getAllRestaurantVotes(LocalDate.now()).get(r.getId());
         return (int) votes;
     }
 
