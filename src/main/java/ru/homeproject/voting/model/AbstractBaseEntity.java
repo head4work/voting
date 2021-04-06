@@ -12,6 +12,11 @@ public class AbstractBaseEntity {
         this.id = id;
     }
 
+    public int id() {
+        // Assert id not null
+        return id;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -36,4 +41,6 @@ public class AbstractBaseEntity {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 }
