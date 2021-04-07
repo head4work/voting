@@ -63,8 +63,6 @@ public class RestaurantRestController {
     }
 
     private Integer countVotes(Restaurant r) {
-        long votes = vote.getAllRestaurantVotes(LocalDate.now()).get(r.getId()) == null
-                ? 0 : vote.getAllRestaurantVotes(LocalDate.now()).get(r.getId());
-        return (int) votes;
+      return vote.getVotes(LocalDate.now(), r.id());
     }
 }

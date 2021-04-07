@@ -11,41 +11,36 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class InMemoryVote implements VoteRepository {
-    // user_id   date,restaurant_id
-    private final static Map<Integer, Map<LocalDate, Integer>> votes = new ConcurrentHashMap<>();
+    // date , user_id , restaurant_id
+    private final static Map<LocalDate, Map<Integer, Integer>> votes = new ConcurrentHashMap<>();
 
     @Override
     public void saveVote(Restaurant r, int userId) {
-        if (!votes.containsKey(userId) || !votes.get(userId).containsKey(LocalDate.now())) {
-            insertVote(r, userId);
-        } else if (LocalDateTime.now().getHour() < 20) {
-            votes.get(userId).computeIfPresent(LocalDate.now(), (localDate, integer) -> r.getId());
+        if (userHasVote(userId)) {
+            votes.computeIfAbsent(LocalDate.now(), date -> new ConcurrentHashMap<>());
+            votes.get(LocalDate.now()).put(userId, r.id());
+        } else if (LocalDateTime.now().getHour() < 11) {
+            votes.get(LocalDate.now()).computeIfPresent(userId, (userId1, restId) -> r.id());
         } else {
-            System.out.println("already voted");
+            System.out.println("U'v already voted and it's too late to change vote");
         }
     }
 
-    private void insertVote(Restaurant r, int userId) {
-        Map<LocalDate, Integer> vote = new ConcurrentHashMap<>();
-        vote.put(LocalDate.now(), r.getId());
-        votes.put(userId, vote);
+    private boolean userHasVote(int userId) {
+        if (votes.get(LocalDate.now()) != null) {
+            return !votes.get(LocalDate.now()).containsKey(userId);
+        }
+        return true;
     }
 
     @Override
-    public Integer getVotes(LocalDate date, int restaurantId) {
-        long aLong = getAllRestaurantVotes(date).get(restaurantId) == null ? 0 : getAllRestaurantVotes(date).get(restaurantId);
-        return (int) aLong;
-    }
-
-    @Override
-    public boolean deleteVote(LocalDate date, int userId) {
-      return   votes.get(userId).remove(date) != null;
+    public Integer getVotes(LocalDate date, int restId) {
+        return Math.toIntExact(getAllRestaurantVotes(date).get(restId));
     }
 
     @Override
     public Map<Integer, Long> getAllRestaurantVotes(LocalDate date) {
-        return votes.values().stream()
-                .map(localDateIntegerMap -> localDateIntegerMap.get(date))
+        return votes.get(date).values().stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 }

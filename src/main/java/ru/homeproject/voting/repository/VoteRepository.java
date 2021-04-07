@@ -8,9 +8,9 @@ import java.util.Map;
 public interface VoteRepository {
     void saveVote(Restaurant r, int userId);
 
-    Integer getVotes(LocalDate date, int restaurantId);
+    Integer getVotes(LocalDate date, int restId);
 
-    boolean deleteVote(LocalDate date, int userId);
+    //  boolean deleteVote(LocalDate date, int userId);
 
     Map<Integer, Long> getAllRestaurantVotes(LocalDate date);
 }
