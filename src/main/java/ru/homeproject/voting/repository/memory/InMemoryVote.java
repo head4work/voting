@@ -1,5 +1,6 @@
 package ru.homeproject.voting.repository.memory;
 
+import org.springframework.stereotype.Repository;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.repository.VoteRepository;
 
@@ -10,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Repository
 public class InMemoryVote implements VoteRepository {
     // date , user_id , restaurant_id
     private final static Map<LocalDate, Map<Integer, Integer>> votes = new ConcurrentHashMap<>();
@@ -35,12 +37,20 @@ public class InMemoryVote implements VoteRepository {
 
     @Override
     public Integer getVotes(LocalDate date, int restId) {
-        return Math.toIntExact(getAllRestaurantVotes(date).get(restId));
+        Map<Integer, Long> allRestaurantVotes = getAllRestaurantVotes(date);
+        if (allRestaurantVotes == null || !allRestaurantVotes.containsKey(restId)) {
+            return 0;
+        }
+        return Math.toIntExact(allRestaurantVotes.get(restId));
     }
 
     @Override
     public Map<Integer, Long> getAllRestaurantVotes(LocalDate date) {
-        return votes.get(date).values().stream()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        Map<Integer, Integer> integerIntegerMap = votes.get(date);
+        if (integerIntegerMap != null) {
+            return integerIntegerMap.values().stream()
+                    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        }
+        return null;
     }
 }

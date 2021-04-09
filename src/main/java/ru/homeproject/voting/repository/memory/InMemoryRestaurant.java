@@ -1,5 +1,6 @@
 package ru.homeproject.voting.repository.memory;
 
+import org.springframework.stereotype.Repository;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.repository.RestaurantRepository;
 
@@ -10,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+@Repository
 public class InMemoryRestaurant implements RestaurantRepository {
     private final AtomicInteger counter = new AtomicInteger();
     private final Map<Integer, Map<Integer, Restaurant>> map = new ConcurrentHashMap<>();

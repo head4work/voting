@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public interface VoteRepository {
+
     void saveVote(Restaurant r, int userId);
 
     Integer getVotes(LocalDate date, int restId);

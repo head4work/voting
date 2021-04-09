@@ -1,5 +1,7 @@
 package ru.homeproject.voting.web.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import ru.homeproject.voting.model.User;
 import ru.homeproject.voting.repository.UserRepository;
 
@@ -8,6 +10,8 @@ import java.util.List;
 import static ru.homeproject.voting.util.ValidationUtil.*;
 
 public class AbstractUserController {
+
+    @Autowired
     private final UserRepository repository;
 
     public AbstractUserController(UserRepository repository) {
@@ -16,7 +20,7 @@ public class AbstractUserController {
 
     public User create(User user) {
         checkNew(user);
-        // assert User not null
+        Assert.notNull(user, "User must not be null");
         return repository.save(user);
     }
 
@@ -26,7 +30,7 @@ public class AbstractUserController {
 
     public void update(User user, int id) {
         assureIdConsistent(user, id);
-        // assert user not null
+        Assert.notNull(user, "User must not be null");
         checkNotFoundWithId(repository.save(user), user.id());
     }
 
@@ -39,7 +43,7 @@ public class AbstractUserController {
     }
 
     public User getByMail(String email) {
-        // assert email not null
+        Assert.notNull(email, "Email must not be null");
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 

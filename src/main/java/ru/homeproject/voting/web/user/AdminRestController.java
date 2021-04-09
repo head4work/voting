@@ -1,10 +1,12 @@
 package ru.homeproject.voting.web.user;
 
+import org.springframework.stereotype.Controller;
 import ru.homeproject.voting.model.User;
 import ru.homeproject.voting.repository.UserRepository;
 
 import java.util.List;
 
+@Controller
 public class AdminRestController extends AbstractUserController {
     public AdminRestController(UserRepository repository) {
         super(repository);

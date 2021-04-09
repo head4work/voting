@@ -1,5 +1,7 @@
 package ru.homeproject.voting.web.restaurant;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.repository.RestaurantRepository;
 import ru.homeproject.voting.repository.VoteRepository;
@@ -13,7 +15,9 @@ import java.util.stream.Collectors;
 
 import static ru.homeproject.voting.util.ValidationUtil.*;
 
+@Controller
 public class RestaurantRestController {
+
     private final RestaurantRepository repository;
     private final VoteRepository vote;
 
@@ -25,7 +29,7 @@ public class RestaurantRestController {
     public Restaurant create(Restaurant r) {
         int userId = SecurityUtil.authUserId();
         checkNew(r);
-        //assert not null Restaurant
+        Assert.notNull(r, "Restaurant must not be null");
         return repository.save(r, userId);
     }
 
@@ -37,7 +41,7 @@ public class RestaurantRestController {
     public void update(Restaurant r, int id) {
         int userId = SecurityUtil.authUserId();
         assureIdConsistent(r, id);
-        //assert not null Restaurant
+        Assert.notNull(r, "Restaurant must not be null");
         checkNotFoundWithId(repository.save(r, userId), r.id());
     }
 
@@ -63,6 +67,6 @@ public class RestaurantRestController {
     }
 
     private Integer countVotes(Restaurant r) {
-      return vote.getVotes(LocalDate.now(), r.id());
+        return vote.getVotes(LocalDate.now(), r.id());
     }
 }
