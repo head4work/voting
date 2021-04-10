@@ -14,32 +14,30 @@ import java.util.stream.Collectors;
 @Repository
 public class InMemoryRestaurant implements RestaurantRepository {
     private final AtomicInteger counter = new AtomicInteger();
-    private final Map<Integer, Map<Integer, Restaurant>> map = new ConcurrentHashMap<>();
+    private final Map<Integer, Restaurant> map = new ConcurrentHashMap<>();
 
     @Override
-    public Restaurant save(Restaurant r, int userId) {
+    public Restaurant save(Restaurant r) {
         if (r.isNew()) {
             r.setId(counter.incrementAndGet());
-            Map<Integer, Restaurant> integerRestaurantMap = map.computeIfAbsent(userId, integer -> new ConcurrentHashMap<>());
-            integerRestaurantMap.put(r.getId(), r);
-            map.put(userId, integerRestaurantMap);
+            map.putIfAbsent(r.id(), r);
             return r;
         }
-        return map.get(userId).computeIfPresent(r.getId(), (integer, restaurant) -> r);
+        return map.computeIfPresent(r.id(), (integer, restaurant) -> r);
     }
 
     @Override
-    public boolean delete(int id, int userId) {
-        return map.get(userId).remove(id) != null;
+    public boolean delete(int id) {
+        return map.remove(id) != null;
     }
 
     @Override
-    public Restaurant get(int id, int userId) {
-        return map.get(userId).get(id);
+    public Restaurant get(int id) {
+        return map.get(id);
     }
 
     @Override
-    public List<Restaurant> getAllSorted(int userId) {
-        return map.get(userId).values().stream().sorted(Comparator.comparing(Restaurant::getCreated).reversed()).collect(Collectors.toList());
+    public List<Restaurant> getAllSorted() {
+        return map.values().stream().sorted(Comparator.comparing(Restaurant::getCreated).reversed()).collect(Collectors.toList());
     }
 }

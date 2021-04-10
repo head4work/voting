@@ -24,16 +24,16 @@ public class MainPlay {
             new Dish(null, "soup", 100), new Dish(null, "rice", 50));
 
     public static void main(String[] args) {
-        repository.save(restaurant1, 1);
-        repository.save(restaurant2, 1);
-        repository.save(restaurant3, 1);
+        repository.save(restaurant1);
+        repository.save(restaurant2);
+        repository.save(restaurant3);
 
         vote.saveVote(restaurant1, 1);
-        getSortedByVotesNew(repository.getAllSorted(1)).forEach(System.out::println);
+        getSortedByVotesNew(repository.getAllSorted()).forEach(System.out::println);
         vote.saveVote(restaurant3, 2);
         vote.saveVote(restaurant2, 1);
-        vote.saveVote(restaurant3,3);
-        getSortedByVotesNew(repository.getAllSorted(1)).forEach(System.out::println);
+        vote.saveVote(restaurant3, 3);
+        getSortedByVotesNew(repository.getAllSorted()).forEach(System.out::println);
 
     }
 

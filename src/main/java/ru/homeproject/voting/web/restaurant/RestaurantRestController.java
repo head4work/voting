@@ -30,29 +30,29 @@ public class RestaurantRestController {
         int userId = SecurityUtil.authUserId();
         checkNew(r);
         Assert.notNull(r, "Restaurant must not be null");
-        return repository.save(r, userId);
+        return repository.save(r);
     }
 
     public Restaurant get(int id) {
         int userId = SecurityUtil.authUserId();
-        return checkNotFoundWithId(repository.get(id, userId), id);
+        return checkNotFoundWithId(repository.get(id), id);
     }
 
     public void update(Restaurant r, int id) {
         int userId = SecurityUtil.authUserId();
         assureIdConsistent(r, id);
         Assert.notNull(r, "Restaurant must not be null");
-        checkNotFoundWithId(repository.save(r, userId), r.id());
+        checkNotFoundWithId(repository.save(r), r.id());
     }
 
     public void delete(int id) {
         int userId = SecurityUtil.authUserId();
-        checkNotFoundWithId(repository.delete(id, userId), id);
+        checkNotFoundWithId(repository.delete(id), id);
     }
 
     public List<RestaurantTo> getAll() {
         int userId = SecurityUtil.authUserId();
-        return getSortedByVotes(repository.getAllSorted(userId));
+        return getSortedByVotes(repository.getAllSorted());
     }
 
     private List<RestaurantTo> getSortedByVotes(List<Restaurant> list) {

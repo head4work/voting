@@ -1,13 +1,26 @@
 package ru.homeproject.voting.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class Restaurant extends AbstractNamedEntity{
+@Entity
+@Table(name = "RESTAURANTS")
+public class Restaurant extends AbstractNamedEntity {
+
+    @Column(name = "CREATED", nullable = false, columnDefinition = "timestamp default now()")
+    @NotNull
     private LocalDateTime created;
 
-    private List<Dish> menu;
+    @ElementCollection
+    @CollectionTable(
+            name = "DISHES",
+            joinColumns = @JoinColumn(name = "RESTAURANT_ID")
+    )
+    private List<Dish> menu = new ArrayList<>();
 
     public Restaurant() {
     }
@@ -18,7 +31,7 @@ public class Restaurant extends AbstractNamedEntity{
         this.menu = menu;
     }
 
-    public Restaurant(Integer id, String name, LocalDateTime created, Dish ... dishes) {
+    public Restaurant(Integer id, String name, LocalDateTime created, Dish... dishes) {
         super(id, name);
         this.created = created;
         this.menu = Arrays.asList(dishes);
