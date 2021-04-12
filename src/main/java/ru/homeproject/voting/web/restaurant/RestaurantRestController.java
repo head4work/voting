@@ -45,15 +45,15 @@ public class RestaurantRestController {
         checkNotFoundWithId(repository.delete(id), id);
     }
 
-    public List<Restaurant> getAllSorted() {
-        return repository.getAllSorted();
+    public List<Restaurant> getAll() {
+        return repository.getAll();
     }
 
-    public List<RestaurantTo> getAll() {
-        return getSortedByVotes(repository.getAllSorted());
+    public List<RestaurantTo> getAllSortedByVotes() {
+        return sortByVotes(repository.getAll());
     }
 
-    private List<RestaurantTo> getSortedByVotes(List<Restaurant> list) {
+    private List<RestaurantTo> sortByVotes(List<Restaurant> list) {
         return list.stream().map(this::castTo)
                 .sorted(Comparator.comparing(RestaurantTo::getVotes).reversed())
                 .collect(Collectors.toList());

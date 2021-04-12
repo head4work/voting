@@ -37,7 +37,7 @@ public class InMemoryRestaurant implements RestaurantRepository {
     }
 
     @Override
-    public List<Restaurant> getAllSorted() {
+    public List<Restaurant> getAll() {
         return map.values().stream().sorted(Comparator.comparing(Restaurant::getCreated).reversed()).collect(Collectors.toList());
     }
 }

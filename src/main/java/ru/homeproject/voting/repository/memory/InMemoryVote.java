@@ -17,12 +17,12 @@ public class InMemoryVote implements VoteRepository {
     private final static Map<LocalDate, Map<Integer, Integer>> votes = new ConcurrentHashMap<>();
 
     @Override
-    public void saveVote(Restaurant r, int userId) {
+    public void saveVote(int restId, int userId) {
         if (userHasVote(userId)) {
             votes.computeIfAbsent(LocalDate.now(), date -> new ConcurrentHashMap<>());
-            votes.get(LocalDate.now()).put(userId, r.id());
+            votes.get(LocalDate.now()).put(userId, restId);
         } else if (LocalDateTime.now().getHour() < 11) {
-            votes.get(LocalDate.now()).computeIfPresent(userId, (userId1, restId) -> r.id());
+            votes.get(LocalDate.now()).computeIfPresent(userId, (userId1, oldId) -> restId);
         } else {
             System.out.println("U'v already voted and it's too late to change vote");
         }

@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface VoteRepository {
 
-    void saveVote(Restaurant r, int userId);
+    void saveVote(int restId, int userId);
 
     Integer getVotes(LocalDate date, Restaurant r);
 

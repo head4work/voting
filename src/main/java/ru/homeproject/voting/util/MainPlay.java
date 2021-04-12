@@ -31,7 +31,7 @@ public class MainPlay {
         vote.saveVote(restaurant3, 2);
         vote.saveVote(restaurant2, 1);
         vote.saveVote(restaurant3, 3);*/
-        getSortedByVotesNew(repository.getAllSorted()).forEach(System.out::println);
+        getSortedByVotesNew(repository.getAll()).forEach(System.out::println);
 
     }
 

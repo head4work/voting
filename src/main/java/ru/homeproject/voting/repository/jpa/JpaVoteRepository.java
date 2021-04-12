@@ -23,11 +23,11 @@ public class JpaVoteRepository implements VoteRepository {
 
     @Transactional
     @Override
-    public void saveVote(Restaurant r, int userId) {
-        Restaurant restaurant = em.getReference(Restaurant.class, r.id());
+    public void saveVote(int restId, int userId) {
+        Restaurant restaurant = em.getReference(Restaurant.class, restId);
         User user = em.getReference(User.class, userId);
 
-        Vote usersVote = usersVote(userId);
+        Vote usersVote = getUsersVote(userId);
         if (usersVote == null) {
             Vote vote = new Vote();
             vote.setRestaurant(restaurant);
@@ -47,13 +47,12 @@ public class JpaVoteRepository implements VoteRepository {
                 .getResultList();
     }
 
-    private Vote usersVote(int userId) {
+    private Vote getUsersVote(int userId) {
         return getVotesByDate(LocalDate.now()).stream().filter(vote -> vote.getUser().getId().equals(userId)).findFirst().orElse(null);
     }
 
     @Override
     public Integer getVotes(LocalDate date, Restaurant r) {
-        //  getVotesByDate(LocalDate.now()).stream()
         return em.createNamedQuery(Vote.BY_RESTAURANT, Vote.class)
                 .setParameter("created", date)
                 .setParameter("restaurant", r)

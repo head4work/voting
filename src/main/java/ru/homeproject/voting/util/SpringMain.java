@@ -25,12 +25,12 @@ public class SpringMain {
       restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name", 500)));
       restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name1", 500)));
 
-      voteRestController.vote(restaurantRestController.get(100002));
-      voteRestController.vote(restaurantRestController.get(100003));
-      restaurantRestController.getAllSorted().forEach(System.out::println);
-      restaurantRestController.get(100002).getVotes().forEach(System.out::println);
-      voteRestController.voteByUserTwo(restaurantRestController.get(100002));
+      voteRestController.vote(100002);
+      voteRestController.vote(100003);
       restaurantRestController.getAll().forEach(System.out::println);
+      restaurantRestController.get(100002).getVotes().forEach(System.out::println);
+      voteRestController.voteByUserTwo(100002);
+      restaurantRestController.getAllSortedByVotes().forEach(System.out::println);
 
 
       /*AdminRestController adminRestController = appCtx.getBean(AdminRestController.class);

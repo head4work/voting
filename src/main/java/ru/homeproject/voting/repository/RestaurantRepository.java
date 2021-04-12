@@ -15,5 +15,5 @@ public interface RestaurantRepository {
     Restaurant get(int id);
 
     //sorted by date desc
-    List<Restaurant> getAllSorted();
+    List<Restaurant> getAll();
 }
