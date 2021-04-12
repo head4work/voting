@@ -6,6 +6,7 @@ import javax.validation.constraints.NotEmpty;
 
 @MappedSuperclass
 public class AbstractNamedEntity extends AbstractBaseEntity {
+
     @NotEmpty
     @Column(name = "name", nullable = false)
     protected String name;

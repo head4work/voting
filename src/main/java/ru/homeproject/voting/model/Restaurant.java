@@ -6,10 +6,19 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+
+@NamedQueries({
+        @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=:id"),
+        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT r FROM Restaurant r LEFT JOIN FETCH r.menu ORDER BY r.created, r.name"),
+})
 
 @Entity
 @Table(name = "RESTAURANTS")
 public class Restaurant extends AbstractNamedEntity {
+
+    public static final String DELETE = "Restaurant.delete";
+    public static final String ALL_SORTED = "Restaurant.getAll";
 
     @Column(name = "CREATED", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
@@ -21,6 +30,9 @@ public class Restaurant extends AbstractNamedEntity {
             joinColumns = @JoinColumn(name = "RESTAURANT_ID")
     )
     private List<Dish> menu = new ArrayList<>();
+
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
+    private Set<Vote> votes;
 
     public Restaurant() {
     }
@@ -35,6 +47,14 @@ public class Restaurant extends AbstractNamedEntity {
         super(id, name);
         this.created = created;
         this.menu = Arrays.asList(dishes);
+    }
+
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
     }
 
     public LocalDateTime getCreated() {
@@ -63,4 +83,6 @@ public class Restaurant extends AbstractNamedEntity {
                 ", menu=" + menu +
                 '}';
     }
+
+
 }

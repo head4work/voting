@@ -6,7 +6,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
-public class Dish extends AbstractNamedEntity {
+public class Dish {
+
+    @NotNull
+    private String name;
+
     @NotNull
     @Min(value = 1, message = "Should not cost less 1 dollar")
     @Max(value = 10000, message = "Should not be more expensive than 10000")
@@ -15,8 +19,8 @@ public class Dish extends AbstractNamedEntity {
     public Dish() {
     }
 
-    public Dish(Integer id, String name, Integer price) {
-        super(id, name);
+    public Dish(String name, Integer price) {
+        this.name = name;
         this.price = price;
     }
 
@@ -31,8 +35,7 @@ public class Dish extends AbstractNamedEntity {
     @Override
     public String toString() {
         return "Dish{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", price=" + price +
                 '}';
     }

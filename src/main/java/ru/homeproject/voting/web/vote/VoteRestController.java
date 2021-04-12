@@ -19,4 +19,13 @@ public class VoteRestController {
         Assert.notNull(r, "Restaurant must not be null");
         vote.saveVote(r, userId);
     }
+
+
+    // Test methods
+    public void voteByUserTwo(Restaurant r) {
+        int userId = 100001;
+        Assert.notNull(r, "Restaurant must not be null");
+        vote.saveVote(r, userId);
+    }
+
 }

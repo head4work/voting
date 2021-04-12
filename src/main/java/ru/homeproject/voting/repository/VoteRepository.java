@@ -9,7 +9,7 @@ public interface VoteRepository {
 
     void saveVote(Restaurant r, int userId);
 
-    Integer getVotes(LocalDate date, int restId);
+    Integer getVotes(LocalDate date, Restaurant r);
 
     //  boolean deleteVote(LocalDate date, int userId);
 

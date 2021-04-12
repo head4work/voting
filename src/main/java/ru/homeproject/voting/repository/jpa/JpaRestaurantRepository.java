@@ -28,16 +28,18 @@ public class JpaRestaurantRepository implements RestaurantRepository {
 
     @Override
     public boolean delete(int id) {
-        return false;
+        return em.createNamedQuery(Restaurant.DELETE)
+                .setParameter("id", id)
+                .executeUpdate() != 0;
     }
 
     @Override
     public Restaurant get(int id) {
-        return null;
+        return em.find(Restaurant.class, id);
     }
 
     @Override
     public List<Restaurant> getAllSorted() {
-        return null;
+        return em.createNamedQuery(Restaurant.ALL_SORTED, Restaurant.class).getResultList();
     }
 }

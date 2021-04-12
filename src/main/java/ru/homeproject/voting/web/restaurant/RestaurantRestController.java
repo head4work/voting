@@ -6,7 +6,6 @@ import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.repository.RestaurantRepository;
 import ru.homeproject.voting.repository.VoteRepository;
 import ru.homeproject.voting.to.RestaurantTo;
-import ru.homeproject.voting.web.SecurityUtil;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -27,31 +26,30 @@ public class RestaurantRestController {
     }
 
     public Restaurant create(Restaurant r) {
-        int userId = SecurityUtil.authUserId();
         checkNew(r);
         Assert.notNull(r, "Restaurant must not be null");
         return repository.save(r);
     }
 
     public Restaurant get(int id) {
-        int userId = SecurityUtil.authUserId();
         return checkNotFoundWithId(repository.get(id), id);
     }
 
     public void update(Restaurant r, int id) {
-        int userId = SecurityUtil.authUserId();
         assureIdConsistent(r, id);
         Assert.notNull(r, "Restaurant must not be null");
         checkNotFoundWithId(repository.save(r), r.id());
     }
 
     public void delete(int id) {
-        int userId = SecurityUtil.authUserId();
         checkNotFoundWithId(repository.delete(id), id);
     }
 
+    public List<Restaurant> getAllSorted() {
+        return repository.getAllSorted();
+    }
+
     public List<RestaurantTo> getAll() {
-        int userId = SecurityUtil.authUserId();
         return getSortedByVotes(repository.getAllSorted());
     }
 
@@ -67,6 +65,6 @@ public class RestaurantRestController {
     }
 
     private Integer countVotes(Restaurant r) {
-        return vote.getVotes(LocalDate.now(), r.id());
+        return vote.getVotes(LocalDate.now(), r);
     }
 }

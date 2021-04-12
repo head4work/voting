@@ -48,6 +48,9 @@ public class User extends AbstractNamedEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    /*@OneToMany(mappedBy = "user")
+    private Set<Vote> votes;*/
+
     public User() {
     }
 
@@ -59,6 +62,14 @@ public class User extends AbstractNamedEntity {
         this.registered = registered;
         this.roles = roles;
     }
+
+   /* public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
+    }*/
 
     @Override
     public String toString() {

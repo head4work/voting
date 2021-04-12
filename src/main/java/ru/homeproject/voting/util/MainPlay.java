@@ -1,13 +1,11 @@
 package ru.homeproject.voting.util;
 
-import ru.homeproject.voting.model.Dish;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.repository.memory.InMemoryRestaurant;
 import ru.homeproject.voting.repository.memory.InMemoryVote;
 import ru.homeproject.voting.to.RestaurantTo;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,15 +14,15 @@ public class MainPlay {
     private static final InMemoryRestaurant repository = new InMemoryRestaurant();
     private static final InMemoryVote vote = new InMemoryVote();
 
-    private static final Restaurant restaurant1 = new Restaurant(null, "McDonalds", LocalDateTime.of(2020, 3, 1, 2, 3, 0),
+   /* private static final Restaurant restaurant1 = new Restaurant(null, "McDonalds", LocalDateTime.of(2020, 3, 1, 2, 3, 0),
             new Dish(null, "soup", 100), new Dish(null, "rice", 50));
     private static final Restaurant restaurant2 = new Restaurant(null, "KFC", LocalDateTime.of(2020, 4, 1, 2, 3, 0),
             new Dish(null, "soup", 100), new Dish(null, "rice", 50));
     private static final Restaurant restaurant3 = new Restaurant(null, "BurgerKing", LocalDateTime.of(2020, 5, 1, 2, 3, 0),
-            new Dish(null, "soup", 100), new Dish(null, "rice", 50));
+            new Dish(null, "soup", 100), new Dish(null, "rice", 50));*/
 
     public static void main(String[] args) {
-        repository.save(restaurant1);
+       /* repository.save(restaurant1);
         repository.save(restaurant2);
         repository.save(restaurant3);
 
@@ -32,7 +30,7 @@ public class MainPlay {
         getSortedByVotesNew(repository.getAllSorted()).forEach(System.out::println);
         vote.saveVote(restaurant3, 2);
         vote.saveVote(restaurant2, 1);
-        vote.saveVote(restaurant3, 3);
+        vote.saveVote(restaurant3, 3);*/
         getSortedByVotesNew(repository.getAllSorted()).forEach(System.out::println);
 
     }

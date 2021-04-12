@@ -2,12 +2,14 @@ package ru.homeproject.voting.util;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.homeproject.voting.model.Dish;
+import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.model.Role;
 import ru.homeproject.voting.model.User;
 import ru.homeproject.voting.web.restaurant.RestaurantRestController;
-import ru.homeproject.voting.web.user.AdminRestController;
 import ru.homeproject.voting.web.vote.VoteRestController;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -20,18 +22,22 @@ public class SpringMain {
       System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
       RestaurantRestController restaurantRestController = appCtx.getBean(RestaurantRestController.class);
       VoteRestController voteRestController = appCtx.getBean(VoteRestController.class);
-     /* restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish(null, "name", 500)));
-      restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish(null, "name1", 500)));
-      restaurantRestController.getAll().forEach(System.out::println);
-      voteRestController.vote(restaurantRestController.get(1));
-      voteRestController.vote(restaurantRestController.get(2));
-      restaurantRestController.getAll().forEach(System.out::println);*/
+      restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name", 500)));
+      restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name1", 500)));
 
-      AdminRestController adminRestController = appCtx.getBean(AdminRestController.class);
+      voteRestController.vote(restaurantRestController.get(100002));
+      voteRestController.vote(restaurantRestController.get(100003));
+      restaurantRestController.getAllSorted().forEach(System.out::println);
+      restaurantRestController.get(100002).getVotes().forEach(System.out::println);
+      voteRestController.voteByUserTwo(restaurantRestController.get(100002));
+      restaurantRestController.getAll().forEach(System.out::println);
+
+
+      /*AdminRestController adminRestController = appCtx.getBean(AdminRestController.class);
       adminRestController.getAll().forEach(System.out::println);
 
       adminRestController.create(NEW_USER);
-      adminRestController.getAll().forEach(System.out::println);
+      adminRestController.getAll().forEach(System.out::println);*/
 
 
     }

@@ -36,12 +36,12 @@ public class InMemoryVote implements VoteRepository {
     }
 
     @Override
-    public Integer getVotes(LocalDate date, int restId) {
+    public Integer getVotes(LocalDate date, Restaurant r) {
         Map<Integer, Long> allRestaurantVotes = getAllRestaurantVotes(date);
-        if (allRestaurantVotes == null || !allRestaurantVotes.containsKey(restId)) {
+        if (allRestaurantVotes == null || !allRestaurantVotes.containsKey(r.getId())) {
             return 0;
         }
-        return Math.toIntExact(allRestaurantVotes.get(restId));
+        return Math.toIntExact(allRestaurantVotes.get(r.getId()));
     }
 
     @Override
