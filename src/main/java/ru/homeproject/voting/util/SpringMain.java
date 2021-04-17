@@ -28,8 +28,9 @@ public class SpringMain {
       voteRestController.vote(100002);
       voteRestController.vote(100003);
       restaurantRestController.getAll().forEach(System.out::println);
-      restaurantRestController.get(100002).getVotes().forEach(System.out::println);
-      voteRestController.voteByUserTwo(100002);
+      voteRestController.voteByAdmin(100002);
+      System.out.println("----------------------------------------------------------------------\n" +
+              "|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
       restaurantRestController.getAllSortedByVotes().forEach(System.out::println);
 
 

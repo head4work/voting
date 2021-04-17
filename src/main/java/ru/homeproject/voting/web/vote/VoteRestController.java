@@ -19,7 +19,7 @@ public class VoteRestController {
 
 
     // Test methods
-    public void voteByUserTwo(int restId) {
+    public void voteByAdmin(int restId) {
         int userId = 100001;
         vote.saveVote(restId, userId);
     }

@@ -48,7 +48,8 @@ public class JpaVoteRepository implements VoteRepository {
     }
 
     private Vote getUsersVote(int userId) {
-        return getVotesByDate(LocalDate.now()).stream().filter(vote -> vote.getUser().getId().equals(userId)).findFirst().orElse(null);
+        return getVotesByDate(LocalDate.now()).stream().filter(vote -> vote.getUser()
+                .getId().equals(userId)).findFirst().orElse(null);
     }
 
     @Override

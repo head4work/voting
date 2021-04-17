@@ -38,7 +38,7 @@ public class RestaurantRestController {
     public void update(Restaurant r, int id) {
         assureIdConsistent(r, id);
         Assert.notNull(r, "Restaurant must not be null");
-        checkNotFoundWithId(repository.save(r), r.id());
+        checkNotFoundWithId(repository.save(r), r.getId());
     }
 
     public void delete(int id) {

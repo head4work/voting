@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=:id"),
@@ -31,9 +30,9 @@ public class Restaurant extends AbstractNamedEntity {
     )
     private List<Dish> menu = new ArrayList<>();
 
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
+  /*  @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
     private Set<Vote> votes;
-
+*/
     public Restaurant() {
     }
 
@@ -48,14 +47,14 @@ public class Restaurant extends AbstractNamedEntity {
         this.created = created;
         this.menu = Arrays.asList(dishes);
     }
-
+/*
     public Set<Vote> getVotes() {
         return votes;
     }
 
     public void setVotes(Set<Vote> votes) {
         this.votes = votes;
-    }
+    }*/
 
     public LocalDateTime getCreated() {
         return created;
