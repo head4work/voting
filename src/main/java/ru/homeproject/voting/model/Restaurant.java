@@ -30,9 +30,6 @@ public class Restaurant extends AbstractNamedEntity {
     )
     private List<Dish> menu = new ArrayList<>();
 
-  /*  @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
-    private Set<Vote> votes;
-*/
     public Restaurant() {
     }
 
@@ -47,14 +44,6 @@ public class Restaurant extends AbstractNamedEntity {
         this.created = created;
         this.menu = Arrays.asList(dishes);
     }
-/*
-    public Set<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(Set<Vote> votes) {
-        this.votes = votes;
-    }*/
 
     public LocalDateTime getCreated() {
         return created;

@@ -18,7 +18,7 @@ public class SpringMain {
   private static final User NEW_USER = new User(null, "name", "name@email.com", "password", true, new Date(), Collections.singleton(Role.USER));
 
   public static void main(String[] args) {
-    try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/appconfig.xml")) {
+    try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
       System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
       RestaurantRestController restaurantRestController = appCtx.getBean(RestaurantRestController.class);
       VoteRestController voteRestController = appCtx.getBean(VoteRestController.class);

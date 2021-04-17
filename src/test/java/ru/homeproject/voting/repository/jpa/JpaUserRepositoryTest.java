@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.Date;
 
 @ContextConfiguration({
-        "classpath:spring/appconfig.xml"
+        "classpath:spring/spring-app.xml"
 })
 @ExtendWith(SpringExtension.class)
 //@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
