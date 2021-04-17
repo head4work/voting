@@ -41,5 +41,6 @@ public class JpaRestaurantRepository implements RestaurantRepository {
     @Override
     public List<Restaurant> getAll() {
         return em.createNamedQuery(Restaurant.ALL_SORTED, Restaurant.class).getResultList();
+              //  .getResultStream().distinct().collect(Collectors.toList());
     }
 }

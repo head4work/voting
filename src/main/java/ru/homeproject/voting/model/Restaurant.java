@@ -83,5 +83,4 @@ public class Restaurant extends AbstractNamedEntity {
                 '}';
     }
 
-
 }
