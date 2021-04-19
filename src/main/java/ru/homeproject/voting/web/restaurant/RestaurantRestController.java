@@ -70,7 +70,7 @@ public class RestaurantRestController {
                 countVotes(r));
     }
 
-    private Integer countVotes(Restaurant r) {
+    public Integer countVotes(Restaurant r) {
         return vote.getVotes(LocalDate.now(), r);
     }
 }

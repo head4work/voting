@@ -2,31 +2,22 @@ package ru.homeproject.voting.web.user;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringRunner;
 import ru.homeproject.voting.UserTestData;
 import ru.homeproject.voting.model.Role;
 import ru.homeproject.voting.model.User;
 import ru.homeproject.voting.repository.UserRepository;
 import ru.homeproject.voting.util.exception.NotFoundException;
+import ru.homeproject.voting.web.AbstractControllerTest;
 
 import java.util.List;
 
 import static org.junit.Assert.assertThrows;
 import static ru.homeproject.voting.UserTestData.*;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml"
-})
-@RunWith(SpringRunner.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 
-public class UserControllerTest {
+public class UserControllerTest extends AbstractControllerTest {
     @Autowired
     private AdminRestController controller;
 

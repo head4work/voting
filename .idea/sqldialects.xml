@@ -4,8 +4,10 @@
     <file url="file://$PROJECT_DIR$/src/main/resources/db/HSQLDB.sql" dialect="HSQLDB" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/initDB.sql" dialect="HSQLDB" />
     <file url="file://$PROJECT_DIR$/src/main/resources/db/populateDB.sql" dialect="HSQLDB" />
+    <file url="PROJECT" dialect="HSQLDB" />
   </component>
   <component name="SqlResolveMappings">
     <file url="file://$PROJECT_DIR$/src/main/resources/db/populateDB.sql" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;@negative&quot;:&quot;1&quot;   }  } }}" />
+    <file url="PROJECT" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;f26881e2-5bfb-4196-a8cf-523b9d3730b8&quot;    },    &quot;group&quot;:{     &quot;@kind&quot;:&quot;database&quot;,     &quot;node&quot;:{      &quot;name&quot;:{       &quot;@qname&quot;:&quot;PUBLIC&quot;      },      &quot;group&quot;:{       &quot;@kind&quot;:&quot;schema&quot;,       &quot;node&quot;:{        &quot;name&quot;:{         &quot;@qname&quot;:&quot;PUBLIC&quot;        }       }      }     }    }   }  } }}" />
   </component>
 </project>

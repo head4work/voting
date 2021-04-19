@@ -10,7 +10,8 @@ import java.util.Date;
 import static ru.homeproject.voting.model.AbstractBaseEntity.START_SEQ;
 
 public class UserTestData {
-    public static final ru.homeproject.voting.TestMatcher<User> USER_MATCHER = ru.homeproject.voting.TestMatcher.usingIgnoringFieldsComparator("registered", "roles");
+    public static final ru.homeproject.voting.TestMatcher<User> USER_MATCHER = ru.homeproject.voting.TestMatcher
+            .usingIgnoringFieldsComparator("registered", "roles");
 
     public static final int USER_ID = START_SEQ;
     public static final int ADMIN_ID = START_SEQ + 1;
