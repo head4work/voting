@@ -1,7 +1,6 @@
 package ru.homeproject.voting.repository.memory;
 
 import org.springframework.stereotype.Repository;
-import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.repository.VoteRepository;
 
 import java.time.LocalDate;
@@ -36,12 +35,12 @@ public class InMemoryVote implements VoteRepository {
     }
 
     @Override
-    public Integer getVotes(LocalDate date, Restaurant r) {
+    public Integer getVotes(LocalDate date, int r) {
         Map<Integer, Long> allRestaurantVotes = getAllRestaurantVotes(date);
-        if (allRestaurantVotes == null || !allRestaurantVotes.containsKey(r.getId())) {
+        if (allRestaurantVotes == null || !allRestaurantVotes.containsKey(r)) {
             return 0;
         }
-        return Math.toIntExact(allRestaurantVotes.get(r.getId()));
+        return Math.toIntExact(allRestaurantVotes.get(r));
     }
 
     @Override

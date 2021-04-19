@@ -67,10 +67,10 @@ public class RestaurantRestController {
 
     private RestaurantTo castTo(Restaurant r) {
         return new RestaurantTo(r.getName(), r.getId(), r.getCreated(), r.getMenu(),
-                countVotes(r));
+                countVotes(r.getId()));
     }
 
-    public Integer countVotes(Restaurant r) {
+    public Integer countVotes(int r) {
         return vote.getVotes(LocalDate.now(), r);
     }
 }

@@ -53,7 +53,7 @@ public class JpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    public Integer getVotes(LocalDate date, Restaurant r) {
+    public Integer getVotes(LocalDate date, int r) {
         return em.createNamedQuery(Vote.BY_RESTAURANT, Vote.class)
                 .setParameter("created", date)
                 .setParameter("restaurant", r)

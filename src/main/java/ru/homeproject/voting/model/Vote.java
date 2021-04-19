@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @NamedQueries({
         @NamedQuery(name = Vote.BY_DATE, query = "SELECT v FROM Vote v WHERE v.created=:created"),
-        @NamedQuery(name = Vote.BY_RESTAURANT, query = "SELECT v FROM Vote v WHERE v.created=:created and v.restaurant=:restaurant"),
+        @NamedQuery(name = Vote.BY_RESTAURANT, query = "SELECT v FROM Vote v WHERE v.created=:created and v.restaurant.id=:restaurant"),
 })
 
 @Entity
