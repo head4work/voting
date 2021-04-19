@@ -19,21 +19,24 @@ public class SpringMain {
 
   public static void main(String[] args) {
     try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
-      System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
-      RestaurantRestController restaurantRestController = appCtx.getBean(RestaurantRestController.class);
-      VoteRestController voteRestController = appCtx.getBean(VoteRestController.class);
-      restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name", 500)));
-      restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name1", 500)));
-      restaurantRestController.update(new Restaurant(100002, "newName", LocalDateTime.now(),
-              new Dish("soup", 700),
-              new Dish("rice", 500),
-              new Dish("pasta", 700)), 100002);
-      //  voteRestController.vote(100002);
-      //   voteRestController.vote(100003);
-      restaurantRestController.getAll().forEach(System.out::println);
-      //   voteRestController.voteByAdmin(100002);
+        System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
+        RestaurantRestController restaurantRestController = appCtx.getBean(RestaurantRestController.class);
+        VoteRestController voteRestController = appCtx.getBean(VoteRestController.class);
+        restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name", 500)));
+        restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name1", 500)));
+        restaurantRestController.update(new Restaurant(100002, "newName", LocalDateTime.now(),
+                new Dish("soup", 700),
+                new Dish("rice", 500),
+                new Dish("pasta", 700)), 100002);
+        voteRestController.vote(100002);
+        voteRestController.vote(100003);
+        restaurantRestController.getAll().forEach(System.out::println);
+        voteRestController.voteByAdmin(100002);
 
-      //   restaurantRestController.getAllSortedByVotes().forEach(System.out::println);
+        restaurantRestController.getAllSortedByVotes().forEach(System.out::println);
+        restaurantRestController.delete(100002);
+        restaurantRestController.getAll().forEach(System.out::println);
+
 
 
       /*AdminRestController adminRestController = appCtx.getBean(AdminRestController.class);
