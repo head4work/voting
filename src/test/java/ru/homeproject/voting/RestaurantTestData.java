@@ -13,7 +13,7 @@ import static ru.homeproject.voting.model.AbstractBaseEntity.START_SEQ;
 
 public class RestaurantTestData {
     public static final ru.homeproject.voting.TestMatcher<RestaurantTo> RESTAURANT_TEST_MATCHER = ru.homeproject.voting.TestMatcher
-            .usingIgnoringFieldsComparator("created");
+            .usingIgnoringFieldsComparator("created", "menu");
 
     public static final int REST1_ID = START_SEQ + 2;
     public static final int NOT_FOUND = 10;
