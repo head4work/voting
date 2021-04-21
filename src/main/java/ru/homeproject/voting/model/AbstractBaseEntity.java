@@ -50,5 +50,4 @@ public class AbstractBaseEntity {
         return Objects.hash(id);
     }
 
-
 }

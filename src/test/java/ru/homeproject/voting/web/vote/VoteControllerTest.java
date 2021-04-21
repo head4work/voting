@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.homeproject.voting.web.AbstractControllerTest;
 import ru.homeproject.voting.web.restaurant.RestaurantRestController;
 
+import java.time.LocalDateTime;
+
 import static ru.homeproject.voting.RestaurantTestData.REST1_ID;
 
 public class VoteControllerTest extends AbstractControllerTest {
@@ -17,8 +19,10 @@ public class VoteControllerTest extends AbstractControllerTest {
 
     @Test
     public void vote() {
+        //  controller.vote(REST1_ID);
         controller.vote(REST1_ID);
         Integer votes = restaurantRestController.countVotes(REST1_ID);
-        Assert.assertEquals(1, votes.intValue());
+        int checkInt = LocalDateTime.now().getHour() < 11 ? 2 : 1;
+        Assert.assertEquals(checkInt, votes.intValue());
     }
 }

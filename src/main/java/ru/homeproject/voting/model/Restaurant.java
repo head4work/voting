@@ -61,7 +61,6 @@ public class Restaurant extends AbstractNamedEntity {
         this.menu = menu;
     }
 
-
     @Override
     public String toString() {
         return "Restaurant{" +

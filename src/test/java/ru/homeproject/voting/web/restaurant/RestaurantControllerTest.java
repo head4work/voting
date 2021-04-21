@@ -3,6 +3,7 @@ package ru.homeproject.voting.web.restaurant;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.to.RestaurantTo;
 import ru.homeproject.voting.util.exception.NotFoundException;
@@ -17,10 +18,17 @@ import static ru.homeproject.voting.RestaurantTestData.*;
 
 
 public class RestaurantControllerTest extends AbstractControllerTest {
+    @Autowired
+    private CacheManager cacheManager;
 
     @Autowired
     private RestaurantRestController controller;
 
+    /*@Before
+    public void setUp(){
+        Objects.requireNonNull(cacheManager.getCache("restaurants")).clear();
+    }
+*/
     @Test
     public void create() {
         Restaurant created = controller.create(getNew());
@@ -71,7 +79,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     public void getAllSortedByVotes() {
         List<RestaurantTo> sortedByVotes = controller.getAllSortedByVotes();
 
-        //TODO should fix comparison hibernate collection and arraylist, now its ignored
+        //TODO should fix comparison hibernate collection and arraylist,for now its ignored
         // assertEquals(sortedByVotes.get(0).getMenu(), getSortedByVotes().get(0).getMenu());
         RESTAURANT_TEST_MATCHER.assertMatch(sortedByVotes, getSortedByVotes());
     }
