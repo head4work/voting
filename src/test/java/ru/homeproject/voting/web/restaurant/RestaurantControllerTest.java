@@ -3,7 +3,6 @@ package ru.homeproject.voting.web.restaurant;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.to.RestaurantTo;
 import ru.homeproject.voting.util.exception.NotFoundException;
@@ -18,17 +17,12 @@ import static ru.homeproject.voting.RestaurantTestData.*;
 
 
 public class RestaurantControllerTest extends AbstractControllerTest {
-    @Autowired
-    private CacheManager cacheManager;
+
 
     @Autowired
     private RestaurantRestController controller;
 
-    /*@Before
-    public void setUp(){
-        Objects.requireNonNull(cacheManager.getCache("restaurants")).clear();
-    }
-*/
+
     @Test
     public void create() {
         Restaurant created = controller.create(getNew());
@@ -61,6 +55,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
     public void delete() {
         controller.delete(REST1_ID);
         assertThrows(NotFoundException.class, () -> controller.get(REST1_ID));
+        controller.getAll();
     }
 
     @Test

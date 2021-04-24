@@ -1,5 +1,7 @@
 package ru.homeproject.voting.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -13,6 +15,7 @@ import java.util.List;
 })
 @Entity
 @Table(name = "RESTAURANTS")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Restaurant extends AbstractNamedEntity {
 
     public static final String DELETE = "Restaurant.delete";
@@ -22,6 +25,7 @@ public class Restaurant extends AbstractNamedEntity {
     @NotNull
     private LocalDateTime created;
 
+    @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @ElementCollection // (fetch = FetchType.EAGER)
     @CollectionTable(
             name = "DISHES",
