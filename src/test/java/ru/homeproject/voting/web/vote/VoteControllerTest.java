@@ -19,10 +19,12 @@ public class VoteControllerTest extends AbstractControllerTest {
 
     @Test
     public void vote() {
-        //  controller.vote(REST1_ID);
         controller.vote(REST1_ID);
+        controller.vote(REST1_ID);
+        controller.vote(REST1_ID + 1);
+        System.out.println("---------------------------------------------");
         Integer votes = restaurantRestController.countVotes(REST1_ID);
-        int checkInt = LocalDateTime.now().getHour() < 11 ? 2 : 1;
+        int checkInt = LocalDateTime.now().getHour() < 11 ? 0 : 1;
         Assert.assertEquals(checkInt, votes.intValue());
     }
 }

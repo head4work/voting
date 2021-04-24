@@ -30,9 +30,10 @@ public class SpringMain {
                 new Dish("pasta", 700)), 100002);
         voteRestController.vote(100002);
         voteRestController.vote(100003);
-        restaurantRestController.getAll().forEach(System.out::println);
-        voteRestController.voteByAdmin(100002);
         System.out.println("-------------------------------------------------------------");
+
+        restaurantRestController.getAll().forEach(System.out::println);
+        // voteRestController.voteByAdmin(100002);
         restaurantRestController.getAllSortedByVotes().forEach(System.out::println);
         // restaurantRestController.delete(100002);
         // restaurantRestController.getAll().forEach(System.out::println);

@@ -39,6 +39,7 @@ public class DataJpaVoteRepository implements VoteRepository {
             vote.setCreated(LocalDate.now());
             crudVoteRepository.save(vote);
         } else if (LocalDateTime.now().getHour() < 11) {
+            userVote.setRestaurant(restaurant);
             crudVoteRepository.save(userVote);
         }
 

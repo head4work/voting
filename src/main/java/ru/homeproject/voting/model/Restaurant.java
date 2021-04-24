@@ -11,7 +11,6 @@ import java.util.List;
         @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=:id"),
         @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT r FROM Restaurant r LEFT JOIN FETCH r.menu ORDER BY r.created, r.name"),
 })
-
 @Entity
 @Table(name = "RESTAURANTS")
 public class Restaurant extends AbstractNamedEntity {
@@ -23,7 +22,7 @@ public class Restaurant extends AbstractNamedEntity {
     @NotNull
     private LocalDateTime created;
 
-    @ElementCollection
+    @ElementCollection // (fetch = FetchType.EAGER)
     @CollectionTable(
             name = "DISHES",
             joinColumns = @JoinColumn(name = "RESTAURANT_ID")

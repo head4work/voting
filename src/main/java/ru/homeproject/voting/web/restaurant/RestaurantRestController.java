@@ -1,7 +1,5 @@
 package ru.homeproject.voting.web.restaurant;
 
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import ru.homeproject.voting.model.Restaurant;
@@ -27,7 +25,6 @@ public class RestaurantRestController {
         this.vote = vote;
     }
 
-    @CacheEvict(value = "restaurants", allEntries = true)
     public Restaurant create(Restaurant r) {
         checkNew(r);
         Assert.notNull(r, "Restaurant must not be null");
@@ -38,19 +35,16 @@ public class RestaurantRestController {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
-    @CacheEvict(value = "restaurants", allEntries = true)
     public void update(Restaurant r, int id) {
         assureIdConsistent(r, id);
         Assert.notNull(r, "Restaurant must not be null");
         checkNotFoundWithId(repository.save(r), r.getId());
     }
 
-    @CacheEvict(value = "restaurants", allEntries = true)
     public void delete(int id) {
         checkNotFoundWithId(repository.delete(id), id);
     }
 
-    @Cacheable("restaurants")
     public List<Restaurant> getAll() {
         return repository.getAll();
     }

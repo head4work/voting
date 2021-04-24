@@ -4,7 +4,6 @@ import ru.homeproject.voting.model.Dish;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 public class RestaurantTo {
     private String name;
@@ -65,19 +64,6 @@ public class RestaurantTo {
 
     public void setVotes(Integer votes) {
         this.votes = votes;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RestaurantTo that = (RestaurantTo) o;
-        return Objects.equals(name, that.name) && Objects.equals(id, that.id) && Objects.equals(created, that.created) && Objects.equals(menu, that.menu) && Objects.equals(votes, that.votes);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, id, created, menu, votes);
     }
 
     @Override

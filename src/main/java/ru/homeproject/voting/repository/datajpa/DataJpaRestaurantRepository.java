@@ -1,5 +1,7 @@
 package ru.homeproject.voting.repository.datajpa;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.homeproject.voting.model.Restaurant;
@@ -17,11 +19,13 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
     }
 
     @Override
+    @CacheEvict(value = "restaurants", allEntries = true)
     public Restaurant save(Restaurant restaurant) {
         return crudRestaurantRepository.save(restaurant);
     }
 
     @Override
+    @CacheEvict(value = "restaurants", allEntries = true)
     public boolean delete(int id) {
         return crudRestaurantRepository.delete(id) != 0;
     }
@@ -31,8 +35,15 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
         return crudRestaurantRepository.findById(id).orElse(null);
     }
 
+
     @Override
+    @Cacheable("restaurants")
     public List<Restaurant> getAll() {
-        return crudRestaurantRepository.findAll(SORT_CREATED);
+        //  return crudRestaurantRepository.findAll(SORT_CREATED);
+        return getAllWithMenu();
+    }
+
+    public List<Restaurant> getAllWithMenu() {
+        return crudRestaurantRepository.getAllWithMenu();
     }
 }
