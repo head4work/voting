@@ -25,7 +25,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>5.2.13.RELEASE</version>
+            <version>5.2.14.RELEASE</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
         <dependency>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>5.2.13.RELEASE</version>
+            <version>5.2.14.RELEASE</version>
             <scope>test</scope>
         </dependency>
 
@@ -79,7 +79,7 @@
         <dependency>
             <groupId>org.ehcache</groupId>
             <artifactId>ehcache</artifactId>
-            <version>3.9.2</version>
+            <version>3.9.3</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime -->
