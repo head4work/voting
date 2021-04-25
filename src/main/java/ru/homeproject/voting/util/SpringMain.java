@@ -29,7 +29,7 @@ public class SpringMain {
                 new Dish("rice", 500),
                 new Dish("pasta", 700)), 100002);
         voteRestController.vote(100002);
-        voteRestController.vote(100003);
+        voteRestController.voteByAdmin(100003);
         System.out.println("-------------------------------------------------------------");
 
         restaurantRestController.getAll().forEach(System.out::println);
