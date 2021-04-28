@@ -1,7 +1,6 @@
 package ru.homeproject.voting.web.restaurant;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.to.RestaurantTo;
@@ -11,8 +10,8 @@ import ru.homeproject.voting.web.AbstractControllerTest;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.homeproject.voting.RestaurantTestData.*;
 
 
@@ -60,7 +59,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     public void deleteNotFound() {
-        Assert.assertThrows(NotFoundException.class, () -> controller.delete(NOT_FOUND));
+        assertThrows(NotFoundException.class, () -> controller.delete(NOT_FOUND));
     }
 
     @Test

@@ -17,7 +17,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--    Tests  -->
-        <junit.version>4.13.2</junit.version>
         <assertj.version>3.19.0</assertj.version>
     </properties>
     <dependencies>
@@ -102,10 +101,11 @@
                <version>3.0.0</version>
            </dependency>-->
 
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.7.1</version>
             <scope>test</scope>
         </dependency>
 

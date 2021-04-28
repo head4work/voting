@@ -1,13 +1,13 @@
 package ru.homeproject.voting.web.vote;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.homeproject.voting.web.AbstractControllerTest;
 import ru.homeproject.voting.web.restaurant.RestaurantRestController;
 
 import java.time.LocalDateTime;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.homeproject.voting.RestaurantTestData.REST1_ID;
 
 public class VoteControllerTest extends AbstractControllerTest {
@@ -25,6 +25,6 @@ public class VoteControllerTest extends AbstractControllerTest {
         System.out.println("---------------------------------------------");
         Integer votes = restaurantRestController.countVotes(REST1_ID);
         int checkInt = LocalDateTime.now().getHour() < 11 ? 0 : 1;
-        Assert.assertEquals(checkInt, votes.intValue());
+        assertEquals(checkInt, votes.intValue());
     }
 }

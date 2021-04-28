@@ -1,7 +1,6 @@
 package ru.homeproject.voting.web.user;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import ru.homeproject.voting.UserTestData;
@@ -13,7 +12,8 @@ import ru.homeproject.voting.web.AbstractControllerTest;
 
 import java.util.List;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.homeproject.voting.UserTestData.*;
 
 
@@ -27,12 +27,12 @@ public class UserControllerTest extends AbstractControllerTest {
     @Test
     public void delete() {
         controller.delete(USER_ID);
-        Assert.assertNull(repository.get(USER_ID));
+        assertNull(repository.get(USER_ID));
     }
 
     @Test
     public void deleteNotFound() {
-        Assert.assertThrows(NotFoundException.class, () -> controller.delete(NOT_FOUND));
+        assertThrows(NotFoundException.class, () -> controller.delete(NOT_FOUND));
     }
 
     @Test
