@@ -1,25 +1,41 @@
 package ru.homeproject.voting.web.user;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import ru.homeproject.voting.model.User;
 import ru.homeproject.voting.repository.UserRepository;
-import ru.homeproject.voting.web.SecurityUtil;
 
-@Controller
+import static ru.homeproject.voting.web.SecurityUtil.authUserId;
+
+@RestController
+@RequestMapping(value = ProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProfileRestController extends AbstractUserController {
+    static final String REST_URL = "/rest/profile";
+
     public ProfileRestController(UserRepository repository) {
         super(repository);
     }
 
+    @GetMapping
     public User get() {
-        return super.get(SecurityUtil.authUserId());
+        return super.get(authUserId());
     }
 
-    public void update(User user) {
-        super.update(user, SecurityUtil.authUserId());
-    }
-
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete() {
-        super.delete(SecurityUtil.authUserId());
+        super.delete(authUserId());
+    }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody User user) {
+        super.update(user, authUserId());
+    }
+
+    @GetMapping("/text")
+    public String testUTF() {
+        return "Русский текст";
     }
 }
