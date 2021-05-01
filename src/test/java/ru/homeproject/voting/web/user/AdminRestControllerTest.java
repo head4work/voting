@@ -24,7 +24,7 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
 
     @Autowired
     @Qualifier("admin")
-    private AbstractUserController userRepository;
+    private AbstractUserController controller;
 
     @Test
     void get() throws Exception {
@@ -49,7 +49,7 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
         perform(MockMvcRequestBuilders.delete(REST_URL + USER_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertThrows(NotFoundException.class, () -> userRepository.get(USER_ID + 354));
+        assertThrows(NotFoundException.class, () -> controller.get(USER_ID + 354));
     }
 
     @Test
@@ -60,7 +60,7 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
 
-        USER_MATCHER.assertMatch(userRepository.get(USER_ID), updated);
+        USER_MATCHER.assertMatch(controller.get(USER_ID), updated);
     }
 
     @Test
@@ -75,7 +75,7 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
         int newId = created.id();
         newUser.setId(newId);
         USER_MATCHER.assertMatch(created, newUser);
-        USER_MATCHER.assertMatch(userRepository.get(newId), newUser);
+        USER_MATCHER.assertMatch(controller.get(newId), newUser);
     }
 
     @Test

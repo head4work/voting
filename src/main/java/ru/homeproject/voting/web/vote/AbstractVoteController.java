@@ -1,10 +1,9 @@
 package ru.homeproject.voting.web.vote;
 
-import org.springframework.stereotype.Controller;
 import ru.homeproject.voting.repository.VoteRepository;
 import ru.homeproject.voting.web.SecurityUtil;
 
-@Controller
+
 public abstract class AbstractVoteController {
     private final VoteRepository vote;
 

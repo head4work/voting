@@ -1,6 +1,5 @@
 package ru.homeproject.voting.web.restaurant;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.repository.RestaurantRepository;
@@ -14,8 +13,8 @@ import java.util.stream.Collectors;
 
 import static ru.homeproject.voting.util.ValidationUtil.*;
 
-@Controller
-public class AbstractRestaurantController {
+
+public abstract class AbstractRestaurantController {
 
     private final RestaurantRepository repository;
     private final VoteRepository vote;
