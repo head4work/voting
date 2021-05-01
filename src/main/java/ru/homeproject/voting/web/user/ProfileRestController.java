@@ -1,5 +1,6 @@
 package ru.homeproject.voting.web.user;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import ru.homeproject.voting.repository.UserRepository;
 import static ru.homeproject.voting.web.SecurityUtil.authUserId;
 
 @RestController
+@Qualifier("profile")
 @RequestMapping(value = ProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProfileRestController extends AbstractUserController {
     static final String REST_URL = "/rest/profile";

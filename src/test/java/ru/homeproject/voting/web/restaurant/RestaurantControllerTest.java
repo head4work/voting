@@ -19,7 +19,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
 
 
     @Autowired
-    private RestaurantRestController controller;
+    private AbstractRestaurantController controller;
 
 
     @Test

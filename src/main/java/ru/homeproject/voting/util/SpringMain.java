@@ -6,8 +6,8 @@ import ru.homeproject.voting.model.Dish;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.model.Role;
 import ru.homeproject.voting.model.User;
-import ru.homeproject.voting.web.restaurant.RestaurantRestController;
-import ru.homeproject.voting.web.vote.VoteRestController;
+import ru.homeproject.voting.web.restaurant.AbstractRestaurantController;
+import ru.homeproject.voting.web.vote.AbstractVoteController;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -20,19 +20,19 @@ public class SpringMain {
   public static void main(String[] args) {
     try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
         System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
-        RestaurantRestController restaurantRestController = appCtx.getBean(RestaurantRestController.class);
-        VoteRestController voteRestController = appCtx.getBean(VoteRestController.class);
-        restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name", 500)));
-        restaurantRestController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name1", 500)));
-        restaurantRestController.update(new Restaurant(100002, "newName", LocalDateTime.now(),
+        AbstractRestaurantController abstractRestaurantController = appCtx.getBean(AbstractRestaurantController.class);
+        AbstractVoteController abstractVoteController = appCtx.getBean(AbstractVoteController.class);
+        abstractRestaurantController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name", 500)));
+        abstractRestaurantController.create(new Restaurant(null, "name", LocalDateTime.now(), new Dish("name1", 500)));
+        abstractRestaurantController.update(new Restaurant(100002, "newName", LocalDateTime.now(),
                 new Dish("soup", 700),
                 new Dish("rice", 500),
                 new Dish("pasta", 700)), 100002);
-        voteRestController.vote(100002);
-        voteRestController.voteByAdmin(100003);
+        abstractVoteController.vote(100002);
+        abstractVoteController.voteByAdmin(100003);
         System.out.println("-------------------------------------------------------------");
 
-        restaurantRestController.getAll().forEach(System.out::println);
+        abstractRestaurantController.getAll().forEach(System.out::println);
         // voteRestController.voteByAdmin(100002);
         // restaurantRestController.getAllSortedByVotes().forEach(System.out::println);
         // restaurantRestController.delete(100002);

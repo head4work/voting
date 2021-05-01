@@ -1,6 +1,7 @@
 package ru.homeproject.voting.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import ru.homeproject.voting.model.User;
 import ru.homeproject.voting.repository.UserRepository;
@@ -9,7 +10,8 @@ import java.util.List;
 
 import static ru.homeproject.voting.util.ValidationUtil.*;
 
-public class AbstractUserController {
+@Controller
+public abstract class AbstractUserController {
 
     @Autowired
     private final UserRepository repository;
