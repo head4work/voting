@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.homeproject.voting.UserTestData.*;
 
 
-public class UserControllerTest extends AbstractControllerTest {
+public class AbstractUserControllerTest extends AbstractControllerTest {
     @Autowired
     private AdminRestController controller;
 

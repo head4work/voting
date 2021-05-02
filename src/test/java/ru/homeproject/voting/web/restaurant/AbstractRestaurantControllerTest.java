@@ -14,13 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.homeproject.voting.RestaurantTestData.*;
 
-
-public class RestaurantControllerTest extends AbstractControllerTest {
-
+class AbstractRestaurantControllerTest extends AbstractControllerTest {
 
     @Autowired
     private AbstractRestaurantController controller;
-
 
     @Test
     public void create() {
@@ -77,4 +74,5 @@ public class RestaurantControllerTest extends AbstractControllerTest {
         // assertEquals(sortedByVotes.get(0).getMenu(), getSortedByVotes().get(0).getMenu());
         RESTAURANT_TEST_MATCHER.assertMatch(sortedByVotes, getSortedByVotes());
     }
+
 }
