@@ -1,5 +1,6 @@
 package ru.homeproject.voting.web.vote;
 
+import ru.homeproject.voting.model.Vote;
 import ru.homeproject.voting.repository.VoteRepository;
 import ru.homeproject.voting.web.SecurityUtil;
 
@@ -11,9 +12,9 @@ public abstract class AbstractVoteController {
         this.vote = vote;
     }
 
-    public void vote(int restId) {
+    public Vote vote(int restId) {
         int userId = SecurityUtil.authUserId();
-        vote.saveVote(restId, userId);
+        return vote.saveVote(restId, userId);
     }
 
     // Test methods

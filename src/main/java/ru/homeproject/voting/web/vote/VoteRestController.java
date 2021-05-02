@@ -1,22 +1,22 @@
 package ru.homeproject.voting.web.vote;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.homeproject.voting.repository.VoteRepository;
 
 @RestController
 @RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteRestController extends AbstractVoteController {
-    protected static final String REST_URL = "rest/votes";
+    protected static final String REST_URL = "rest/vote";
 
     public VoteRestController(VoteRepository vote) {
         super(vote);
     }
 
-    @Override
-    public void vote(int restId) {
-        super.vote(restId);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public void createWithLocation(@RequestParam int id) {
+        super.vote(id);
     }
-
 }

@@ -28,13 +28,14 @@ public class SpringMain {
                 new Dish("soup", 700),
                 new Dish("rice", 500),
                 new Dish("pasta", 700)), 100002);
+        abstractVoteController.vote(100003);
         abstractVoteController.vote(100002);
         abstractVoteController.voteByAdmin(100003);
         System.out.println("-------------------------------------------------------------");
 
         abstractRestaurantController.getAll().forEach(System.out::println);
         // voteRestController.voteByAdmin(100002);
-        // restaurantRestController.getAllSortedByVotes().forEach(System.out::println);
+        abstractRestaurantController.getAllSortedByVotes().forEach(System.out::println);
         // restaurantRestController.delete(100002);
         // restaurantRestController.getAll().forEach(System.out::println);
 

@@ -28,7 +28,7 @@ public class DataJpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    public void saveVote(int restId, int userId) {
+    public Vote saveVote(int restId, int userId) {
         Restaurant restaurant = crudRestaurantRepository.getOne(restId);
         User user = crudUserRepository.getOne(userId);
         Vote userVote = getUserVote(userId);
@@ -38,11 +38,12 @@ public class DataJpaVoteRepository implements VoteRepository {
             vote.setRestaurant(restaurant);
             vote.setCreated(LocalDate.now());
             crudVoteRepository.save(vote);
+            return vote;
         } else if (LocalDateTime.now().getHour() < 11) {
             userVote.setRestaurant(restaurant);
             crudVoteRepository.save(userVote);
         }
-
+        return userVote;
     }
 
     @Override

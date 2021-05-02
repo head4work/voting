@@ -1,6 +1,7 @@
 package ru.homeproject.voting.repository.memory;
 
 import org.springframework.stereotype.Repository;
+import ru.homeproject.voting.model.Vote;
 import ru.homeproject.voting.repository.VoteRepository;
 
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ public class InMemoryVote implements VoteRepository {
     private final static Map<LocalDate, Map<Integer, Integer>> votes = new ConcurrentHashMap<>();
 
     @Override
-    public void saveVote(int restId, int userId) {
+    public Vote saveVote(int restId, int userId) {
         if (userHasVote(userId)) {
             votes.computeIfAbsent(LocalDate.now(), date -> new ConcurrentHashMap<>());
             votes.get(LocalDate.now()).put(userId, restId);
@@ -25,6 +26,7 @@ public class InMemoryVote implements VoteRepository {
         } else {
             System.out.println("U'v already voted and it's too late to change vote");
         }
+        return null;
     }
 
     private boolean userHasVote(int userId) {

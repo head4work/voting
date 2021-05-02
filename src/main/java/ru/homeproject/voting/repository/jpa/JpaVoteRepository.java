@@ -23,7 +23,7 @@ public class JpaVoteRepository implements VoteRepository {
 
     @Transactional
     @Override
-    public void saveVote(int restId, int userId) {
+    public Vote saveVote(int restId, int userId) {
         Restaurant restaurant = em.getReference(Restaurant.class, restId);
         User user = em.getReference(User.class, userId);
 
@@ -34,10 +34,12 @@ public class JpaVoteRepository implements VoteRepository {
             vote.setUser(user);
             vote.setCreated(LocalDate.now());
             em.persist(vote);
+            return vote;
         } else if (LocalDateTime.now().getHour() < 11) {
             em.merge(usersVote);
+            return usersVote;
         } else {
-            System.out.println("You have voted already and it's too late to change mind");
+            return null;
         }
     }
 

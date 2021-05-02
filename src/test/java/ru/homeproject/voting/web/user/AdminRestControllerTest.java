@@ -49,7 +49,7 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
         perform(MockMvcRequestBuilders.delete(REST_URL + USER_ID))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertThrows(NotFoundException.class, () -> controller.get(USER_ID + 354));
+        assertThrows(NotFoundException.class, () -> controller.get(USER_ID));
     }
 
     @Test
