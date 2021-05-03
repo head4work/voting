@@ -17,6 +17,7 @@ import java.util.Map;
 @Repository
 @Transactional(readOnly = true)
 public class JpaVoteRepository implements VoteRepository {
+    public static final int TIME_UNTIL_VOTE_CAN_BE_CHANGED = 11;
 
     @PersistenceContext
     private EntityManager em;
@@ -35,7 +36,7 @@ public class JpaVoteRepository implements VoteRepository {
             vote.setCreated(LocalDate.now());
             em.persist(vote);
             return vote;
-        } else if (LocalDateTime.now().getHour() < 11) {
+        } else if (LocalDateTime.now().getHour() < TIME_UNTIL_VOTE_CAN_BE_CHANGED) {
             em.merge(usersVote);
             return usersVote;
         } else {

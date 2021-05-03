@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryVote implements VoteRepository {
+    public static final int TIME_UNTIL_VOTE_CAN_BE_CHANGED = 11;
+
     // date , user_id , restaurant_id
     private final static Map<LocalDate, Map<Integer, Integer>> votes = new ConcurrentHashMap<>();
 
@@ -21,7 +23,7 @@ public class InMemoryVote implements VoteRepository {
         if (userHasVote(userId)) {
             votes.computeIfAbsent(LocalDate.now(), date -> new ConcurrentHashMap<>());
             votes.get(LocalDate.now()).put(userId, restId);
-        } else if (LocalDateTime.now().getHour() < 11) {
+        } else if (LocalDateTime.now().getHour() < TIME_UNTIL_VOTE_CAN_BE_CHANGED) {
             votes.get(LocalDate.now()).computeIfPresent(userId, (userId1, oldId) -> restId);
         } else {
             System.out.println("U'v already voted and it's too late to change vote");

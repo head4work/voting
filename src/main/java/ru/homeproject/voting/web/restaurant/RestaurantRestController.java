@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantRestController extends AbstractRestaurantController {
-    protected static final String REST_URL = "rest/restaurants";
+    protected static final String REST_URL = "/rest/restaurants";
 
     public RestaurantRestController(RestaurantRepository repository, VoteRepository vote) {
         super(repository, vote);
@@ -40,7 +40,7 @@ public class RestaurantRestController extends AbstractRestaurantController {
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Restaurant r, int id) {
+    public void update(@RequestBody Restaurant r, @PathVariable int id) {
         super.update(r, id);
     }
 
@@ -64,8 +64,8 @@ public class RestaurantRestController extends AbstractRestaurantController {
     }
 
     @Override
-    @GetMapping("{id}/votes")
-    public Integer countVotes(@PathVariable int id) {
+    @GetMapping("/votes")
+    public Integer countVotes(@RequestParam int id) {
         return super.countVotes(id);
     }
 }

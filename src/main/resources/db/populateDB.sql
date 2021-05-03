@@ -27,3 +27,6 @@ VALUES (100002, 'soup', 500),
        (100003, 'rice', 500),
        (100003, 'chicken', 700),
        (100003, 'spaghetti', 300);
+
+INSERT INTO VOTES (RESTAURANT_ID, USER_ID)
+VALUES (100002, 100001);

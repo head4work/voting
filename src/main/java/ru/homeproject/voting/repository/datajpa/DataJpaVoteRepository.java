@@ -12,6 +12,7 @@ import java.util.Map;
 
 @Repository
 public class DataJpaVoteRepository implements VoteRepository {
+    public static final int TIME_UNTIL_VOTE_CAN_BE_CHANGED = 11;
     private final CrudRestaurantRepository crudRestaurantRepository;
     private final CrudUserRepository crudUserRepository;
     private final CrudVoteRepository crudVoteRepository;
@@ -39,7 +40,7 @@ public class DataJpaVoteRepository implements VoteRepository {
             vote.setCreated(LocalDate.now());
             crudVoteRepository.save(vote);
             return vote;
-        } else if (LocalDateTime.now().getHour() < 11) {
+        } else if (LocalDateTime.now().getHour() < TIME_UNTIL_VOTE_CAN_BE_CHANGED) {
             userVote.setRestaurant(restaurant);
             crudVoteRepository.save(userVote);
         }

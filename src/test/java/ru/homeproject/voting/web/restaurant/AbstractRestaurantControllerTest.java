@@ -72,7 +72,7 @@ class AbstractRestaurantControllerTest extends AbstractControllerTest {
 
         //TODO should fix comparison hibernate collection and arraylist,for now its ignored
         // assertEquals(sortedByVotes.get(0).getMenu(), getSortedByVotes().get(0).getMenu());
-        RESTAURANT_TEST_MATCHER.assertMatch(sortedByVotes, getSortedByVotes());
+        RESTAURANT_TO_TEST_MATCHER.assertMatch(sortedByVotes, getSortedByVotes());
     }
 
 }
