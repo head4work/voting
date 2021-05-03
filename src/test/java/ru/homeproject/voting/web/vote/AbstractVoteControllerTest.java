@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.homeproject.voting.RestaurantTestData.REST1_ID;
 import static ru.homeproject.voting.repository.datajpa.DataJpaVoteRepository.TIME_UNTIL_VOTE_CAN_BE_CHANGED;
 
-public class VoteControllerTest extends AbstractControllerTest {
+public class AbstractVoteControllerTest extends AbstractControllerTest {
     @Autowired
     private AbstractRestaurantController abstractRestaurantController;
 

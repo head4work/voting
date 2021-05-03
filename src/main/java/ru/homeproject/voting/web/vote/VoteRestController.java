@@ -8,15 +8,15 @@ import ru.homeproject.voting.repository.VoteRepository;
 @RestController
 @RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteRestController extends AbstractVoteController {
-    protected static final String REST_URL = "rest/vote";
+    protected static final String REST_URL = "/rest/vote";
 
     public VoteRestController(VoteRepository vote) {
         super(vote);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public void createWithLocation(@RequestParam int id) {
+    public void createVote(@RequestParam int id) {
         super.vote(id);
     }
 }
