@@ -14,15 +14,15 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantRestController extends AbstractRestaurantController {
-    protected static final String REST_URL = "/rest/restaurants";
+    protected static final String REST_URL = "/rest/admin/restaurants";
 
     public RestaurantRestController(RestaurantRepository repository, VoteRepository vote) {
         super(repository, vote);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@RequestBody Restaurant rest) {
         Restaurant created = super.create(rest);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -32,39 +32,39 @@ public class RestaurantRestController extends AbstractRestaurantController {
     }
 
     @Override
-    @GetMapping("/{id}")
+    @GetMapping(value = REST_URL + "/{id}")
     public Restaurant get(@PathVariable int id) {
         return super.get(id);
     }
 
     @Override
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = REST_URL + "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody Restaurant r, @PathVariable int id) {
         super.update(r, id);
     }
 
     @Override
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = REST_URL + "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable int id) {
         super.delete(id);
     }
 
     @Override
-    @GetMapping
+    @GetMapping(value = REST_URL)
     public List<Restaurant> getAll() {
         return super.getAll();
     }
 
     @Override
-    @GetMapping("/sorted")
+    @GetMapping(value = "/rest/restaurants")
     public List<RestaurantTo> getAllSortedByVotes() {
         return super.getAllSortedByVotes();
     }
 
     @Override
-    @GetMapping("/votes")
+    @GetMapping(value = REST_URL + "/votes")
     public Integer countVotes(@RequestParam int id) {
         return super.countVotes(id);
     }

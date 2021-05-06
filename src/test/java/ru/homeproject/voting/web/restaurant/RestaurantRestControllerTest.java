@@ -78,7 +78,7 @@ class RestaurantRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void getAllSortedByVotes() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "sorted"))
+        perform(MockMvcRequestBuilders.get("/rest/restaurants"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(RESTAURANT_TO_TEST_MATCHER.contentJson(getSortedByVotes()));
