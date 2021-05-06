@@ -14,7 +14,7 @@
     <!-- bean definitions here -->
 
     <import resource="spring-cache.xml"/>
-
+    <import resource="spring-security.xml"/>
     <!-- <context:component-scan base-package="ru.homeproject.voting.repository.jpa"/>-->
 
     <context:component-scan base-package="ru.homeproject.**.repository.datajpa"/>
