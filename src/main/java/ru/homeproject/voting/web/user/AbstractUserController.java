@@ -1,16 +1,23 @@
 package ru.homeproject.voting.web.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import ru.homeproject.voting.model.User;
 import ru.homeproject.voting.repository.UserRepository;
+import ru.homeproject.voting.web.AuthorizedUser;
 
 import java.util.List;
 
 import static ru.homeproject.voting.util.ValidationUtil.*;
 
-
-public abstract class AbstractUserController {
+@Component("users")
+@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class AbstractUserController implements UserDetailsService {
 
     @Autowired
     private final UserRepository repository;
@@ -48,4 +55,12 @@ public abstract class AbstractUserController {
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 
+    @Override
+    public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.getByEmail(email.toLowerCase());
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return new AuthorizedUser(user);
+    }
 }

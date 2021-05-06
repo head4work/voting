@@ -21,7 +21,7 @@ class ProfileRestControllerTest extends AbstractRestControllerTest {
 
     @Autowired
     @Qualifier("profile")
-    private AbstractUserController userService;
+    private AbstractUserController controller;
 
     @Test
     void get() throws Exception {
@@ -35,7 +35,7 @@ class ProfileRestControllerTest extends AbstractRestControllerTest {
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(REST_URL))
                 .andExpect(status().isNoContent());
-        USER_MATCHER.assertMatch(userService.getAll(), admin);
+        USER_MATCHER.assertMatch(controller.getAll(), admin);
     }
 
     @Test
@@ -46,6 +46,6 @@ class ProfileRestControllerTest extends AbstractRestControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        USER_MATCHER.assertMatch(userService.get(USER_ID), updated);
+        USER_MATCHER.assertMatch(controller.get(USER_ID), updated);
     }
 }
