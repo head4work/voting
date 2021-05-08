@@ -12,7 +12,6 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 @Transactional(readOnly = true)
@@ -63,8 +62,4 @@ public class JpaVoteRepository implements VoteRepository {
                 .getResultList().size();
     }
 
-    @Override
-    public Map<Integer, Long> getAllRestaurantVotes(LocalDate date) {
-        return null;
-    }
 }

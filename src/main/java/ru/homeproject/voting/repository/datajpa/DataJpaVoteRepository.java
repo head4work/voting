@@ -8,7 +8,6 @@ import ru.homeproject.voting.repository.VoteRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 @Repository
 public class DataJpaVoteRepository implements VoteRepository {
@@ -52,8 +51,4 @@ public class DataJpaVoteRepository implements VoteRepository {
         return crudVoteRepository.findAll(date, restId).size();
     }
 
-    @Override
-    public Map<Integer, Long> getAllRestaurantVotes(LocalDate date) {
-        return null;
-    }
 }

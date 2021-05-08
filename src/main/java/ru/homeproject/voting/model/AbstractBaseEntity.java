@@ -1,5 +1,7 @@
 package ru.homeproject.voting.model;
 
+import org.springframework.util.Assert;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -21,7 +23,7 @@ public class AbstractBaseEntity {
     }
 
     public int id() {
-        // Assert id not null
+        Assert.notNull(id, "id should not be null");
         return id;
     }
 

@@ -47,7 +47,6 @@ public class InMemoryVote implements VoteRepository {
         return Math.toIntExact(allRestaurantVotes.get(r));
     }
 
-    @Override
     public Map<Integer, Long> getAllRestaurantVotes(LocalDate date) {
         Map<Integer, Integer> integerIntegerMap = votes.get(date);
         if (integerIntegerMap != null) {
