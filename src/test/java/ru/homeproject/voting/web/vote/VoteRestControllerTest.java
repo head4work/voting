@@ -10,6 +10,7 @@ import ru.homeproject.voting.web.restaurant.AbstractRestaurantController;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.homeproject.voting.RestaurantTestData.REST1_ID;
+import static ru.homeproject.voting.UserTestData.USER;
 
 class VoteRestControllerTest extends AbstractRestControllerTest {
 
@@ -20,7 +21,8 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void createVote() throws Exception {
-        perform(MockMvcRequestBuilders.post(REST_URL).param("id", String.valueOf(RestaurantTestData.REST1_ID)))
+        perform(MockMvcRequestBuilders.post(REST_URL).param("id", String.valueOf(RestaurantTestData.REST1_ID))
+                .with(userHttpBasic(USER)))
                 .andExpect(status().isOk());
         assertEquals(2, controller.countVotes(REST1_ID));
     }

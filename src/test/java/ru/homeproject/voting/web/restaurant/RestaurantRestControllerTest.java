@@ -17,6 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.homeproject.voting.RestaurantTestData.*;
 import static ru.homeproject.voting.TestUtil.readFromJson;
+import static ru.homeproject.voting.UserTestData.ADMIN;
+import static ru.homeproject.voting.UserTestData.USER;
 
 class RestaurantRestControllerTest extends AbstractRestControllerTest {
     private static final String REST_URL = RestaurantRestController.REST_URL + '/';
@@ -30,7 +32,7 @@ class RestaurantRestControllerTest extends AbstractRestControllerTest {
         Restaurant newRest = RestaurantTestData.getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newRest)))
+                .content(JsonUtil.writeValue(newRest)).with(userHttpBasic(ADMIN)))
                 .andExpect(status().isCreated());
 
         Restaurant created = readFromJson(action, Restaurant.class);
@@ -42,7 +44,7 @@ class RestaurantRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + REST1_ID))
+        perform(MockMvcRequestBuilders.get(REST_URL + REST1_ID).with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 // https://jira.spring.io/browse/SPR-14472
@@ -55,14 +57,14 @@ class RestaurantRestControllerTest extends AbstractRestControllerTest {
         Restaurant updated = RestaurantTestData.getUpdated();
         perform(MockMvcRequestBuilders.put(REST_URL + REST1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
+                .content(JsonUtil.writeValue(updated)).with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent());
         RESTAURANT_TEST_MATCHER.assertMatch(controller.get(REST1_ID), updated);
     }
 
     @Test
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + REST1_ID))
+        perform(MockMvcRequestBuilders.delete(REST_URL + REST1_ID).with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, () -> controller.get(REST1_ID));
@@ -70,7 +72,7 @@ class RestaurantRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL).with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(RESTAURANT_TEST_MATCHER.contentJson(getRestaurantsList()));
@@ -78,7 +80,7 @@ class RestaurantRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void getAllSortedByVotes() throws Exception {
-        perform(MockMvcRequestBuilders.get("/rest/restaurants"))
+        perform(MockMvcRequestBuilders.get("/rest/restaurants").with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(RESTAURANT_TO_TEST_MATCHER.contentJson(getSortedByVotes()));
@@ -86,7 +88,8 @@ class RestaurantRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void countVotes() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "votes").param("id", String.valueOf(REST1_ID)))
+        perform(MockMvcRequestBuilders.get(REST_URL + "votes").param("id", String.valueOf(REST1_ID))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().string("1"));

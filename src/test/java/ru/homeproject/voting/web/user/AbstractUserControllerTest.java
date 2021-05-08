@@ -61,7 +61,7 @@ public class AbstractUserControllerTest extends AbstractControllerTest {
     @Test
     public void get() {
         User user = controller.get(USER_ID);
-        USER_MATCHER.assertMatch(user, UserTestData.user);
+        USER_MATCHER.assertMatch(user, UserTestData.USER);
     }
 
     @Test
@@ -72,12 +72,12 @@ public class AbstractUserControllerTest extends AbstractControllerTest {
     @Test
     public void getByEmail() {
         User user = controller.getByMail("admin@gmail.com");
-        USER_MATCHER.assertMatch(user, admin);
+        USER_MATCHER.assertMatch(user, ADMIN);
     }
 
     @Test
     public void getAll() {
         List<User> all = controller.getAll();
-        USER_MATCHER.assertMatch(all, admin, user);
+        USER_MATCHER.assertMatch(all, ADMIN, USER);
     }
 }
