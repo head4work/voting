@@ -29,6 +29,7 @@
         <jdbc:script encoding="utf-8" location="classpath:db/populateDB.sql"/>
     </jdbc:initialize-database>
 
+
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${database.driverClassName}"/>
@@ -36,6 +37,7 @@
         <property name="username" value="${database.username}"/>
         <property name="password" value="${database.password}"/>
     </bean>
+
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
@@ -76,5 +78,10 @@
           p:entityManagerFactory-ref="entityManagerFactory"/>
 
     <bean class="ru.homeproject.voting.util.JpaUtil"/>
+
+
+    <!--  <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/voting"/>
+      <context:property-placeholder location="classpath:db/tomcat.properties" system-properties-mode="OVERRIDE"/>-->
+
 
 </beans>
