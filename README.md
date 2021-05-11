@@ -4,6 +4,7 @@ This is a simple voting web app created with Java
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [REST api](#rest-api-examples)
 
 ## General info
 This web app is used to choose a restaurant from a list you'd prefer to have a lunch in, corresponding to your gastronomical preferences.
@@ -22,7 +23,10 @@ Project is created with:
 * Hibernate cache version 5.4.30
 * Logback-classic version 1.2.3
 * Junit-jupiter-api version 5.4.0
-* Jackson-json version> 2.12.2
+* Jackson-json version 2.12.2
 	
 ## Setup
-To run this project:
+To run this project: deploy voting.war into tomcat9 servlet or run the command  ```mvn clean verify org.codehaus.cargo:cargo-maven3-plugin:run```
+ from project folder with pom.xml located in it (required java 15 and maven installed and path environment variables been set)
+ 
+ ## REST api examples
