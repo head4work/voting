@@ -39,8 +39,8 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
     @Override
     @Cacheable("restaurants")
     public List<Restaurant> getAll() {
-        //  return crudRestaurantRepository.findAll(SORT_CREATED);
-        return getAllWithMenu();
+        return crudRestaurantRepository.findAll(SORT_CREATED);
+        // return getAllWithMenu();
     }
 
     public List<Restaurant> getAllWithMenu() {
