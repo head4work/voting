@@ -44,3 +44,38 @@ To run this project: deploy voting.war into tomcat9 servlet or run the command  
 
 * delete users profile
 ```curl -v  -X DELETE  -u "user@yandex.ru:password"  http://localhost:8080/voting/rest/profile``` 
+
+ #### admins requests
+ 
+ * get all users
+```curl -v -u "admin@gmail.com:admin" http://localhost:8080/voting/rest/admin/users```
+
+* get user by id
+```curl -v -u "admin@gmail.com:admin" http://localhost:8080/voting/rest/admin/users/100001```
+
+* get user by email
+```curl -v -u "admin@gmail.com:admin" http://localhost:8080/voting/rest/admin/users/by?email=admin@gmail.com```
+
+* create user
+```curl -v -X POST -u "admin@gmail.com:admin" -H "Content-Type: application/json" -d "{\"id\":null,\"name\":\"user\",\"email\":\"user@yandex.ru\",\"password\":\"password\",\"enabled\":true,\"registered\":\"2021-05-12T09:53:43.268+00:00\",\"roles\":[\"USER\"]}" http://localhost:8080/voting/rest/admin/users```
+
+* update user
+```curl -v -X PUT -u "admin@gmail.com:admin" -H "Content-Type: application/json" -d "{\"id\":100005,\"name\":\"updated\",\"email\":\"user@yandex.ru\",\"password\":\"password\",\"enabled\":true,\"registered\":\"2021-05-12T09:53:43.268+00:00\",\"roles\":[\"USER\"]}" http://localhost:8080/voting/rest/admin/users/100005```
+
+* delete user
+```curl -v  -X DELETE -u "admin@gmail.com:admin" http://localhost:8080/voting/rest/admin/users/100005```
+
+* get all restaurants
+```curl -u "admin@gmail.com:admin" -v http://localhost:8080/voting/rest/admin/restaurants```
+
+* get restaurant 
+```curl -u "admin@gmail.com:admin" -v http://localhost:8080/voting/rest/admin/restaurants/100002```
+
+* create restaurant
+```curl -v -X POST -u "admin@gmail.com:admin" -H "Content-Type: application/json" -d "{\"id\":null,\"name\":\"new\",\"created\":\"2021-07-12T12:53:43.268\",\"menu\":[{\"name\":\"soup\",\"price\":500}]}" http://localhost:8080/voting/rest/admin/restaurants```
+
+* update restaurant
+ ```curl -v -X PUT -u "admin@gmail.com:admin" -H "Content-Type: application/json" -d "{\"id\":100006,\"name\":\"updated\",\"created\":\"2021-07-12T12:53:43.268\",\"menu\":[{\"name\":\"soup\",\"price\":500}]}" http://localhost:8080/voting/rest/admin/restaurants/100006```
+
+* delete restaurant 
+```curl -v  -X DELETE -u "admin@gmail.com:admin" http://localhost:8080/voting/rest/admin/restaurants/100006```
