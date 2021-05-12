@@ -29,7 +29,7 @@ Project is created with:
 	
 ## Setup
 To run this project: deploy voting.war into tomcat9 servlet or run the command  ```mvn clean verify org.codehaus.cargo:cargo-maven3-plugin:run```
- from project folder with pom.xml located in it (required openjdk 15,maven installed and path environment variables been set)
+ from project folder with pom.xml located in it (required openjdk 15 and maven3 installed, check that path environment variables have been set)
  
  ## REST api 
  
