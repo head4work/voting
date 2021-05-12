@@ -26,7 +26,7 @@ public class Restaurant extends AbstractNamedEntity {
     private LocalDateTime created;
 
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @ElementCollection // (fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name = "DISHES",
             joinColumns = @JoinColumn(name = "RESTAURANT_ID")
