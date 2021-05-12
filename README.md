@@ -7,7 +7,8 @@ This is a simple voting web app created with Java
 * [REST api](#rest-api)
 
 ## General info
-This web app is used to choose a restaurant from a list you'd prefer to have a lunch in, corresponding to your gastronomical preferences.
+This web app is used to vote for a restaurant from a list you'd prefer to have a lunch in, corresponding to your gastronomical preferences.
+User allowed to vote only once in 24 hours or he can change his vote if local time is less than 11 AM.
 	
 ## Technologies
 Project is created with:
@@ -35,6 +36,9 @@ To run this project: deploy voting.war into tomcat9 servlet or run the command  
 
 * get all restaurants sorted by votes
 ```curl -v -u "user@yandex.ru:password" http://localhost:8080/voting/rest/restaurants```
+
+* logged user vote for restaurant
+```curl -v -X POST -u "user@yandex.ru:password" http://localhost:8080/voting/rest/vote?id=100002```
 
 * get users profile
 ```curl -v -u "user@yandex.ru:password" http://localhost:8080/voting/rest/profile```
