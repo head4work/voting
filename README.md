@@ -12,6 +12,7 @@ User allowed to vote only once in 24 hours or he can change his vote if local ti
 	
 ## Technologies
 Project is created with:
+* Java openjdk 15
 * Springframework version 5.2.14
 * Spring web version 5.2.14
 * Spring webmvc version 5.2.14
