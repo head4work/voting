@@ -1,5 +1,6 @@
 package ru.homeproject.voting;
 
+
 import ru.homeproject.voting.model.Dish;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.to.RestaurantTo;
@@ -11,6 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import static ru.homeproject.voting.model.AbstractBaseEntity.START_SEQ;
+
 
 public class RestaurantTestData {
     public static final ru.homeproject.voting.TestMatcher<RestaurantTo> RESTAURANT_TO_TEST_MATCHER = ru.homeproject.voting.TestMatcher

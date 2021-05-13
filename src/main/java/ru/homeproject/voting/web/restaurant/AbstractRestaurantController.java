@@ -1,5 +1,7 @@
 package ru.homeproject.voting.web.restaurant;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.repository.RestaurantRepository;
@@ -15,6 +17,7 @@ import static ru.homeproject.voting.util.ValidationUtil.*;
 
 
 public abstract class AbstractRestaurantController {
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     private final RestaurantRepository repository;
     private final VoteRepository vote;
@@ -25,26 +28,31 @@ public abstract class AbstractRestaurantController {
     }
 
     public Restaurant create(Restaurant r) {
+        log.info("create {}", r);
         checkNew(r);
         Assert.notNull(r, "Restaurant must not be null");
         return repository.save(r);
     }
 
     public Restaurant get(int id) {
+        log.info("get {}", id);
         return checkNotFoundWithId(repository.get(id), id);
     }
 
     public void update(Restaurant r, int id) {
+        log.info("update {}", id);
         assureIdConsistent(r, id);
         Assert.notNull(r, "Restaurant must not be null");
         checkNotFoundWithId(repository.save(r), r.getId());
     }
 
     public void delete(int id) {
+        log.info("delete {}", id);
         checkNotFoundWithId(repository.delete(id), id);
     }
 
     public List<Restaurant> getAll() {
+        log.info("getAll");
         return repository.getAll();
     }
 
@@ -64,6 +72,7 @@ public abstract class AbstractRestaurantController {
     }
 
     public Integer countVotes(int r) {
+        log.info("countVotes {}", r);
         return vote.getVotes(LocalDate.now(), r);
     }
 }

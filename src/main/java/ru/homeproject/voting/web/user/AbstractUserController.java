@@ -1,5 +1,7 @@
 package ru.homeproject.voting.web.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -18,6 +20,7 @@ import static ru.homeproject.voting.util.ValidationUtil.*;
 @Component("users")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class AbstractUserController implements UserDetailsService {
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private final UserRepository repository;
@@ -27,30 +30,36 @@ public class AbstractUserController implements UserDetailsService {
     }
 
     public User create(User user) {
+        log.info("create {}", user);
         checkNew(user);
         Assert.notNull(user, "User must not be null");
         return repository.save(user);
     }
 
     public User get(int id) {
+        log.info("get {}", id);
         return checkNotFoundWithId(repository.get(id), id);
     }
 
     public void update(User user, int id) {
+        log.info("update {}", id);
         assureIdConsistent(user, id);
         Assert.notNull(user, "User must not be null");
         checkNotFoundWithId(repository.save(user), user.id());
     }
 
     public void delete(int id) {
+        log.info("delete {}", id);
         checkNotFoundWithId(repository.delete(id), id);
     }
 
     public List<User> getAll() {
+        log.info("getAll");
         return repository.getAll();
     }
 
     public User getByMail(String email) {
+        log.info("get {}", email);
         Assert.notNull(email, "Email must not be null");
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
