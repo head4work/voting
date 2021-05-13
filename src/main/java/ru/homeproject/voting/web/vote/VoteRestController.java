@@ -2,7 +2,9 @@ package ru.homeproject.voting.web.vote;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.homeproject.voting.repository.VoteRepository;
+import ru.homeproject.voting.util.exception.VoteExpiredException;
 
 @RestController
 @RequestMapping(value = VoteRestController.REST_URL)
@@ -17,6 +19,10 @@ public class VoteRestController extends AbstractVoteController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public void createVote(@RequestParam int id) {
-        super.vote(id);
+        try {
+            super.vote(id);
+        } catch (VoteExpiredException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_MODIFIED, "Your vote right has been expired", e);
+        }
     }
 }

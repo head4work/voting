@@ -3,12 +3,14 @@ package ru.homeproject.voting.web.vote;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.homeproject.voting.repository.VoteRepository;
+import ru.homeproject.voting.util.exception.VoteExpiredException;
 import ru.homeproject.voting.web.AbstractControllerTest;
 import ru.homeproject.voting.web.restaurant.AbstractRestaurantController;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.homeproject.voting.RestaurantTestData.REST1_ID;
 import static ru.homeproject.voting.UserTestData.USER_ID;
 import static ru.homeproject.voting.repository.datajpa.DataJpaVoteRepository.TIME_UNTIL_VOTE_CAN_BE_CHANGED;
@@ -22,12 +24,16 @@ public class AbstractVoteControllerTest extends AbstractControllerTest {
 
     @Test
     public void vote() {
+        boolean timeCheck = LocalDateTime.now().getHour() < TIME_UNTIL_VOTE_CAN_BE_CHANGED;
         repository.saveVote(REST1_ID, USER_ID);
-        repository.saveVote(REST1_ID, USER_ID);
-        repository.saveVote(REST1_ID + 1, USER_ID);
-        System.out.println("---------------------------------------------");
+        assertThrows(VoteExpiredException.class, () -> repository.saveVote(REST1_ID, USER_ID));
+        if (!timeCheck) {
+            assertThrows(VoteExpiredException.class, () -> repository.saveVote(REST1_ID + 1, USER_ID));
+        } else {
+            repository.saveVote(REST1_ID + 1, USER_ID);
+        }
         Integer votes = abstractRestaurantController.countVotes(REST1_ID);
-        int checkInt = LocalDateTime.now().getHour() < TIME_UNTIL_VOTE_CAN_BE_CHANGED ? 1 : 2;
+        int checkInt = timeCheck ? 1 : 2;
         assertEquals(checkInt, votes.intValue());
     }
 }

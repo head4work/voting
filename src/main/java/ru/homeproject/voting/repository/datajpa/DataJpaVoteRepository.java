@@ -5,6 +5,7 @@ import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.model.User;
 import ru.homeproject.voting.model.Vote;
 import ru.homeproject.voting.repository.VoteRepository;
+import ru.homeproject.voting.util.exception.VoteExpiredException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -39,11 +40,14 @@ public class DataJpaVoteRepository implements VoteRepository {
             vote.setCreated(LocalDate.now());
             crudVoteRepository.save(vote);
             return vote;
-        } else if (LocalDateTime.now().getHour() < TIME_UNTIL_VOTE_CAN_BE_CHANGED) {
+        } else if (LocalDateTime.now().getHour() < TIME_UNTIL_VOTE_CAN_BE_CHANGED &&
+                !userVote.getRestaurant().getId().equals(restId)) {
             userVote.setRestaurant(restaurant);
             crudVoteRepository.save(userVote);
+            return userVote;
+        } else {
+            throw new VoteExpiredException();
         }
-        return userVote;
     }
 
     @Override
