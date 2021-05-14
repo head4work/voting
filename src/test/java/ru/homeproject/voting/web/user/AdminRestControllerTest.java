@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import ru.homeproject.voting.UserTestData;
 import ru.homeproject.voting.model.User;
 import ru.homeproject.voting.util.exception.NotFoundException;
 import ru.homeproject.voting.web.AbstractRestControllerTest;
@@ -55,7 +54,7 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void update() throws Exception {
-        User updated = UserTestData.getUpdated();
+        User updated = getUpdated();
         perform(MockMvcRequestBuilders.put(REST_URL + USER_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)).with(userHttpBasic(ADMIN)))
@@ -66,10 +65,10 @@ class AdminRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void createWithLocation() throws Exception {
-        User newUser = UserTestData.getNew();
+        User newUser = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newUser)).with(userHttpBasic(ADMIN)))
+                .content(jsonUserWithPassword).with(userHttpBasic(ADMIN)))
                 .andExpect(status().isCreated());
 
         User created = readFromJson(action, User.class);

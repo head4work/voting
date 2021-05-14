@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import ru.homeproject.voting.model.User;
@@ -15,6 +16,7 @@ import ru.homeproject.voting.web.AuthorizedUser;
 
 import java.util.List;
 
+import static ru.homeproject.voting.util.UserUtil.prepareToSave;
 import static ru.homeproject.voting.util.ValidationUtil.*;
 
 @Component("users")
@@ -24,6 +26,8 @@ public class AbstractUserController implements UserDetailsService {
 
     @Autowired
     private final UserRepository repository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public AbstractUserController(UserRepository repository) {
         this.repository = repository;
@@ -33,7 +37,7 @@ public class AbstractUserController implements UserDetailsService {
         log.info("create {}", user);
         checkNew(user);
         Assert.notNull(user, "User must not be null");
-        return repository.save(user);
+        return repository.save(prepareToSave(user, passwordEncoder));
     }
 
     public User get(int id) {
@@ -45,7 +49,7 @@ public class AbstractUserController implements UserDetailsService {
         log.info("update {}", id);
         assureIdConsistent(user, id);
         Assert.notNull(user, "User must not be null");
-        checkNotFoundWithId(repository.save(user), user.id());
+        checkNotFoundWithId(repository.save(prepareToSave(user, passwordEncoder)), user.id());
     }
 
     public void delete(int id) {
