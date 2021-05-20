@@ -11,22 +11,22 @@ import java.time.LocalDate;
 })
 
 @Entity
-@Table(name = "VOTES")
+@Table(name = "votes")
 public class Vote extends AbstractBaseEntity {
 
     public static final String BY_DATE = "Vote.getByDate";
     public static final String BY_RESTAURANT = "Vote.byRestaurant";
 
-    @Column(name = "CREATED", nullable = false, columnDefinition = "timestamp default now()")
+    @Column(name = "created", nullable = false, columnDefinition = "date default now()")
     @NotNull
     private LocalDate created;
 
-    @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "RESTAURANT_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
     public Vote() {

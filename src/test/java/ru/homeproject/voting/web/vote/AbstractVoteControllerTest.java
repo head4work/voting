@@ -2,7 +2,7 @@ package ru.homeproject.voting.web.vote;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.homeproject.voting.repository.VoteRepository;
+import ru.homeproject.voting.repository.datajpa.DataJpaVoteRepository;
 import ru.homeproject.voting.util.exception.VoteExpiredException;
 import ru.homeproject.voting.web.AbstractControllerTest;
 import ru.homeproject.voting.web.restaurant.AbstractRestaurantController;
@@ -20,7 +20,7 @@ public class AbstractVoteControllerTest extends AbstractControllerTest {
     private AbstractRestaurantController abstractRestaurantController;
 
     @Autowired
-    private VoteRepository repository;
+    private DataJpaVoteRepository repository;
 
     @Test
     public void vote() {

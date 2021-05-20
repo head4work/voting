@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 import ru.homeproject.voting.model.Restaurant;
-import ru.homeproject.voting.repository.RestaurantRepository;
-import ru.homeproject.voting.repository.VoteRepository;
+import ru.homeproject.voting.repository.datajpa.DataJpaRestaurantRepository;
+import ru.homeproject.voting.repository.datajpa.DataJpaVoteRepository;
 import ru.homeproject.voting.to.RestaurantTo;
 
 import java.time.LocalDate;
@@ -19,10 +19,10 @@ import static ru.homeproject.voting.util.ValidationUtil.*;
 public abstract class AbstractRestaurantController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
-    private final RestaurantRepository repository;
-    private final VoteRepository vote;
+    private final DataJpaRestaurantRepository repository;
+    private final DataJpaVoteRepository vote;
 
-    public AbstractRestaurantController(RestaurantRepository repository, VoteRepository vote) {
+    public AbstractRestaurantController(DataJpaRestaurantRepository repository, DataJpaVoteRepository vote) {
         this.repository = repository;
         this.vote = vote;
     }

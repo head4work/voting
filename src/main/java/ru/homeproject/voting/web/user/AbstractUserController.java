@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import ru.homeproject.voting.model.User;
-import ru.homeproject.voting.repository.UserRepository;
+import ru.homeproject.voting.repository.datajpa.DataJpaUserRepository;
 import ru.homeproject.voting.web.AuthorizedUser;
 
 import java.util.List;
@@ -25,11 +25,11 @@ public class AbstractUserController implements UserDetailsService {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private final UserRepository repository;
+    private final DataJpaUserRepository repository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public AbstractUserController(UserRepository repository) {
+    public AbstractUserController(DataJpaUserRepository repository) {
         this.repository = repository;
     }
 

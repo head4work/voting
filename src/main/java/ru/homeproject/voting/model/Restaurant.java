@@ -14,22 +14,22 @@ import java.util.List;
         @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT r FROM Restaurant r LEFT JOIN FETCH r.menu ORDER BY r.created, r.name"),
 })
 @Entity
-@Table(name = "RESTAURANTS")
+@Table(name = "restaurants")
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Restaurant extends AbstractNamedEntity {
 
     public static final String DELETE = "Restaurant.delete";
     public static final String ALL_SORTED = "Restaurant.getAll";
 
-    @Column(name = "CREATED", nullable = false, columnDefinition = "timestamp default now()")
+    @Column(name = "created", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
     private LocalDateTime created;
 
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
-            name = "DISHES",
-            joinColumns = @JoinColumn(name = "RESTAURANT_ID")
+            name = "dishes",
+            joinColumns = @JoinColumn(name = "restaurant_id")
     )
     private List<Dish> menu = new ArrayList<>();
 

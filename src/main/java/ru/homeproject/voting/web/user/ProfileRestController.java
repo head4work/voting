@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.homeproject.voting.model.User;
-import ru.homeproject.voting.repository.UserRepository;
+import ru.homeproject.voting.repository.datajpa.DataJpaUserRepository;
 
 import static ru.homeproject.voting.web.SecurityUtil.authUserId;
 
@@ -15,7 +15,7 @@ import static ru.homeproject.voting.web.SecurityUtil.authUserId;
 public class ProfileRestController extends AbstractUserController {
     static final String REST_URL = "/rest/profile";
 
-    public ProfileRestController(UserRepository repository) {
+    public ProfileRestController(DataJpaUserRepository repository) {
         super(repository);
     }
 

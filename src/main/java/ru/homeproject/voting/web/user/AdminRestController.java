@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.homeproject.voting.model.User;
-import ru.homeproject.voting.repository.UserRepository;
+import ru.homeproject.voting.repository.datajpa.DataJpaUserRepository;
 
 import java.net.URI;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 public class AdminRestController extends AbstractUserController {
     static final String REST_URL = "/rest/admin/users";
 
-    public AdminRestController(UserRepository repository) {
+    public AdminRestController(DataJpaUserRepository repository) {
         super(repository);
     }
 

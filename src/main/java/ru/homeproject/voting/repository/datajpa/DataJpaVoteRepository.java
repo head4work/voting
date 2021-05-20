@@ -4,14 +4,13 @@ import org.springframework.stereotype.Repository;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.model.User;
 import ru.homeproject.voting.model.Vote;
-import ru.homeproject.voting.repository.VoteRepository;
 import ru.homeproject.voting.util.exception.VoteExpiredException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Repository
-public class DataJpaVoteRepository implements VoteRepository {
+public class DataJpaVoteRepository {
     public static final int TIME_UNTIL_VOTE_CAN_BE_CHANGED = 11;
     private final CrudRestaurantRepository crudRestaurantRepository;
     private final CrudUserRepository crudUserRepository;
@@ -28,7 +27,6 @@ public class DataJpaVoteRepository implements VoteRepository {
         return crudVoteRepository.findById(LocalDate.now(), userId);
     }
 
-    @Override
     public Vote saveVote(int restId, int userId) {
         Restaurant restaurant = crudRestaurantRepository.getOne(restId);
         User user = crudUserRepository.getOne(userId);
@@ -50,7 +48,6 @@ public class DataJpaVoteRepository implements VoteRepository {
         }
     }
 
-    @Override
     public Integer getVotes(LocalDate date, int restId) {
         return crudVoteRepository.findAll(date, restId).size();
     }

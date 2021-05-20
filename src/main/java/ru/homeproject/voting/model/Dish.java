@@ -12,7 +12,7 @@ public class Dish {
 
     @NotNull
     @Min(value = 1, message = "Should not cost less 1 dollar")
-    @Max(value = 10000, message = "Should not be more expensive than 10000")
+    @Max(value = 100000, message = "Should not be more expensive than 100000")
     private Integer price;
 
     public Dish() {

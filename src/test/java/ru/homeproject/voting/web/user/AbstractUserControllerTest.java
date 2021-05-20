@@ -6,7 +6,7 @@ import org.springframework.dao.DataAccessException;
 import ru.homeproject.voting.UserTestData;
 import ru.homeproject.voting.model.Role;
 import ru.homeproject.voting.model.User;
-import ru.homeproject.voting.repository.UserRepository;
+import ru.homeproject.voting.repository.datajpa.DataJpaUserRepository;
 import ru.homeproject.voting.util.exception.NotFoundException;
 import ru.homeproject.voting.web.AbstractControllerTest;
 
@@ -22,7 +22,7 @@ public class AbstractUserControllerTest extends AbstractControllerTest {
     private AdminRestController controller;
 
     @Autowired
-    private UserRepository repository;
+    private DataJpaUserRepository repository;
 
     @Test
     public void delete() {
