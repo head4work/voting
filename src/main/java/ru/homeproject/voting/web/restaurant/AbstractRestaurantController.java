@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.repository.datajpa.DataJpaRestaurantRepository;
-import ru.homeproject.voting.repository.datajpa.DataJpaVoteRepository;
 import ru.homeproject.voting.to.RestaurantTo;
+import ru.homeproject.voting.web.vote.AbstractVoteController;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -20,9 +20,9 @@ public abstract class AbstractRestaurantController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     private final DataJpaRestaurantRepository repository;
-    private final DataJpaVoteRepository vote;
+    private final AbstractVoteController vote;
 
-    public AbstractRestaurantController(DataJpaRestaurantRepository repository, DataJpaVoteRepository vote) {
+    public AbstractRestaurantController(DataJpaRestaurantRepository repository, AbstractVoteController vote) {
         this.repository = repository;
         this.vote = vote;
     }

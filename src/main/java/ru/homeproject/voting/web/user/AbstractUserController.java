@@ -5,13 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import ru.homeproject.voting.model.User;
-import ru.homeproject.voting.repository.datajpa.DataJpaUserRepository;
+import ru.homeproject.voting.repository.datajpa.CrudUserRepository;
 import ru.homeproject.voting.web.AuthorizedUser;
 
 import java.util.List;
@@ -23,13 +24,15 @@ import static ru.homeproject.voting.util.ValidationUtil.*;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class AbstractUserController implements UserDetailsService {
     protected final Logger log = LoggerFactory.getLogger(getClass());
+    private static final Sort SORT_NAME_EMAIL = Sort.by(Sort.Direction.ASC, "name", "email");
 
     @Autowired
-    private final DataJpaUserRepository repository;
+    private final CrudUserRepository repository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public AbstractUserController(DataJpaUserRepository repository) {
+    public AbstractUserController(CrudUserRepository repository) {
         this.repository = repository;
     }
 
@@ -42,7 +45,7 @@ public class AbstractUserController implements UserDetailsService {
 
     public User get(int id) {
         log.info("get {}", id);
-        return checkNotFoundWithId(repository.get(id), id);
+        return checkNotFoundWithId(repository.findById(id).orElse(null), id);
     }
 
     public void update(User user, int id) {
@@ -54,12 +57,12 @@ public class AbstractUserController implements UserDetailsService {
 
     public void delete(int id) {
         log.info("delete {}", id);
-        checkNotFoundWithId(repository.delete(id), id);
+        checkNotFoundWithId(repository.delete(id) != 0, id);
     }
 
     public List<User> getAll() {
         log.info("getAll");
-        return repository.getAll();
+        return repository.findAll(SORT_NAME_EMAIL);
     }
 
     public User getByMail(String email) {

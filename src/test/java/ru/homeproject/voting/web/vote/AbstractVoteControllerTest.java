@@ -2,7 +2,6 @@ package ru.homeproject.voting.web.vote;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.homeproject.voting.repository.datajpa.DataJpaVoteRepository;
 import ru.homeproject.voting.util.exception.VoteExpiredException;
 import ru.homeproject.voting.web.AbstractControllerTest;
 import ru.homeproject.voting.web.restaurant.AbstractRestaurantController;
@@ -13,24 +12,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.homeproject.voting.RestaurantTestData.REST1_ID;
 import static ru.homeproject.voting.UserTestData.USER_ID;
-import static ru.homeproject.voting.repository.datajpa.DataJpaVoteRepository.TIME_UNTIL_VOTE_CAN_BE_CHANGED;
+import static ru.homeproject.voting.web.vote.AbstractVoteController.TIME_UNTIL_VOTE_CAN_BE_CHANGED;
 
 public class AbstractVoteControllerTest extends AbstractControllerTest {
     @Autowired
     private AbstractRestaurantController abstractRestaurantController;
 
     @Autowired
-    private DataJpaVoteRepository repository;
+    private AbstractVoteController controller;
 
     @Test
     public void vote() {
         boolean timeCheck = LocalDateTime.now().getHour() < TIME_UNTIL_VOTE_CAN_BE_CHANGED;
-        repository.saveVote(REST1_ID, USER_ID);
-        assertThrows(VoteExpiredException.class, () -> repository.saveVote(REST1_ID, USER_ID));
+        controller.saveVote(REST1_ID, USER_ID);
+        assertThrows(VoteExpiredException.class, () -> controller.saveVote(REST1_ID, USER_ID));
         if (!timeCheck) {
-            assertThrows(VoteExpiredException.class, () -> repository.saveVote(REST1_ID + 1, USER_ID));
+            assertThrows(VoteExpiredException.class, () -> controller.saveVote(REST1_ID + 1, USER_ID));
         } else {
-            repository.saveVote(REST1_ID + 1, USER_ID);
+            controller.saveVote(REST1_ID + 1, USER_ID);
         }
         Integer votes = abstractRestaurantController.countVotes(REST1_ID);
         int checkInt = timeCheck ? 1 : 2;
