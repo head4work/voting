@@ -6,7 +6,6 @@ import ru.homeproject.voting.model.Vote;
 import ru.homeproject.voting.repository.VoteRepository;
 import ru.homeproject.voting.web.SecurityUtil;
 
-
 public abstract class AbstractVoteController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -20,12 +19,6 @@ public abstract class AbstractVoteController {
         log.info("vote {}", restId);
         int userId = SecurityUtil.authUserId();
         return vote.saveVote(restId, userId);
-    }
-
-    // Test methods
-    public void voteByAdmin(int restId) {
-        int userId = 100001;
-        vote.saveVote(restId, userId);
     }
 
 }

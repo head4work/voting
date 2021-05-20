@@ -2,6 +2,7 @@
 *.class
 *.lst
 *.properties
+*.idea
 target/
 
 /testFile.log
