@@ -1,14 +1,25 @@
 # Restaurant voting app
 This is a simple voting web app created with Java 
 ## Table of contents
-* [General info](#general-info)
+* [Task](#task)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [REST api](#rest-api)
 
-## General info
-This web app is used to vote for a restaurant from a list you'd prefer to have a lunch in, corresponding to your gastronomical preferences.
-User allowed to vote only once in 24 hours or he can change his vote if local time is less than 11 AM.
+## Task
+The task is:
+
+Build a voting system for deciding where to have lunch.
+
+2 types of users: admin and regular users
+Admin can input a restaurant and it's lunch menu of the day (2-5 items usually, just a dish name and price)
+Menu changes each day (admins do the updates)
+Users can vote on which restaurant they want to have lunch at
+Only one vote counted per user
+If user votes again the same day:
+If it is before 11:00 we assume that he changed his mind.
+If it is after 11:00 then it is too late, vote can't be changed
+Each restaurant provides a new menu each day.
 	
 ## Technologies
 Project is created with:
