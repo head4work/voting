@@ -2,6 +2,7 @@ package ru.homeproject.voting.web.vote;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.model.User;
 import ru.homeproject.voting.model.Vote;
@@ -33,6 +34,7 @@ public abstract class AbstractVoteController {
         return saveVote(restId, userId);
     }
 
+    @Transactional
     public Vote saveVote(int restId, int userId) {
         log.info("vote {}", restId);
         Restaurant restaurant = crudRestaurantRepository.getOne(restId);
