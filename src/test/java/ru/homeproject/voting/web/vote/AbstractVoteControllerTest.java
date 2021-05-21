@@ -22,17 +22,9 @@ public class AbstractVoteControllerTest extends AbstractControllerTest {
     private AbstractVoteController controller;
 
     @Test
-    public void simpleVote() {
-        controller.saveVote(REST1_ID, USER_ID);
-        // controller.saveVote(REST1_ID +1, USER_ID);
-        abstractRestaurantController.countVotes(REST1_ID);
-    }
-
-    @Test
     public void vote() {
         boolean timeCheck = LocalDateTime.now().getHour() < TIME_UNTIL_VOTE_CAN_BE_CHANGED;
         controller.saveVote(REST1_ID, USER_ID);
-        assertThrows(VoteExpiredException.class, () -> controller.saveVote(REST1_ID, USER_ID));
         if (!timeCheck) {
             assertThrows(VoteExpiredException.class, () -> controller.saveVote(REST1_ID + 1, USER_ID));
         } else {

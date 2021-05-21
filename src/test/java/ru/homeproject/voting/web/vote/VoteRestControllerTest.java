@@ -4,16 +4,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.homeproject.voting.RestaurantTestData;
 import ru.homeproject.voting.web.AbstractRestControllerTest;
 import ru.homeproject.voting.web.restaurant.AbstractRestaurantController;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.homeproject.voting.RestaurantTestData.REST1_ID;
 import static ru.homeproject.voting.UserTestData.ADMIN;
 import static ru.homeproject.voting.UserTestData.USER;
+import static ru.homeproject.voting.web.vote.AbstractVoteController.TIME_UNTIL_VOTE_CAN_BE_CHANGED;
 
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 class VoteRestControllerTest extends AbstractRestControllerTest {
@@ -33,8 +37,10 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
 
     @Test
     void createVoteDuplicate() throws Exception {
+        ResultMatcher result = LocalDateTime.now().getHour() > TIME_UNTIL_VOTE_CAN_BE_CHANGED
+                ? status().isUnprocessableEntity() : status().isOk();
         perform(MockMvcRequestBuilders.post(REST_URL).param("id", String.valueOf(RestaurantTestData.REST1_ID))
                 .with(userHttpBasic(ADMIN)))
-                .andExpect(status().isUnprocessableEntity());
+                .andExpect(result);
     }
 }

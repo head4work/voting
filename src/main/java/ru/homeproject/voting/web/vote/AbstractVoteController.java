@@ -39,19 +39,18 @@ public abstract class AbstractVoteController {
         log.info("vote {}", restId);
         Restaurant restaurant = crudRestaurantRepository.getOne(restId);
         User user = crudUserRepository.getOne(userId);
-        Vote userVote = getUserVote(userId);
-        if (userVote == null) {
-            Vote vote = new Vote();
+        Vote vote = new Vote();
+        if (LocalDateTime.now().getHour() < TIME_UNTIL_VOTE_CAN_BE_CHANGED) {
+            int response = crudVoteRepository.update(restId, LocalDate.now(), userId);
+            if (response == 1) {
+                return vote;
+            }
+        }
+        if (getUserVote(userId) == null) {
             vote.setUser(user);
             vote.setRestaurant(restaurant);
             vote.setCreated(LocalDate.now());
-            crudVoteRepository.save(vote);
-            return vote;
-        } else if (LocalDateTime.now().getHour() < TIME_UNTIL_VOTE_CAN_BE_CHANGED &&
-                !userVote.getRestaurant().getId().equals(restId)) {
-            userVote.setRestaurant(restaurant);
-            crudVoteRepository.save(userVote);
-            return userVote;
+            return crudVoteRepository.save(vote);
         } else {
             throw new VoteExpiredException();
         }
@@ -62,7 +61,7 @@ public abstract class AbstractVoteController {
     }
 
     public Integer getVotes(LocalDate date, int restId) {
-      return (int) crudVoteRepository.countByDateAndRestaurant(date, restId);
+        return (int) crudVoteRepository.countByDateAndRestaurant(date, restId);
     }
 
 }
