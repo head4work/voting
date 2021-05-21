@@ -35,6 +35,6 @@ class VoteRestControllerTest extends AbstractRestControllerTest {
     void createVoteDuplicate() throws Exception {
         perform(MockMvcRequestBuilders.post(REST_URL).param("id", String.valueOf(RestaurantTestData.REST1_ID))
                 .with(userHttpBasic(ADMIN)))
-                .andExpect(status().isNotModified());
+                .andExpect(status().isUnprocessableEntity());
     }
 }

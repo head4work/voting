@@ -24,7 +24,7 @@ public class VoteRestController extends AbstractVoteController {
         try {
             super.vote(id);
         } catch (VoteExpiredException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_MODIFIED, "Your vote right has been expired", e);
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Your vote right has been expired", e);
         }
     }
 }
