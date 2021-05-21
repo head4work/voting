@@ -62,7 +62,7 @@ public abstract class AbstractVoteController {
     }
 
     public Integer getVotes(LocalDate date, int restId) {
-        return crudVoteRepository.findAll(date, restId).size();
+      return (int) crudVoteRepository.countByDateAndRestaurant(date, restId);
     }
 
 }
