@@ -5,6 +5,7 @@ import ru.homeproject.voting.model.Dish;
 import ru.homeproject.voting.model.Restaurant;
 import ru.homeproject.voting.to.RestaurantTo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,9 +24,10 @@ public class RestaurantTestData {
 
     public static final int REST1_ID = START_SEQ + 2;
     public static final int NOT_FOUND = 10;
-    public static final Restaurant rest1 = new Restaurant(REST1_ID, "name1", LocalDateTime.now(), new Dish("soup", 500));
-    public static final Restaurant rest2 = new Restaurant(REST1_ID + 1, "name2", LocalDateTime.now(), new Dish("rice", 500),
-            new Dish("chicken", 700), new Dish("spaghetti", 300));
+    private static LocalDate created = LocalDate.now();
+    public static final Restaurant rest1 = new Restaurant(REST1_ID, "name1", LocalDateTime.now(), new Dish(created, "soup", 500));
+    public static final Restaurant rest2 = new Restaurant(REST1_ID + 1, "name2", LocalDateTime.now(), new Dish(created, "rice", 500),
+            new Dish(created, "chicken", 700), new Dish(created, "spaghetti", 300));
 
     public static List<Restaurant> getRestaurantsList() {
         return Arrays.asList(rest1, rest2);
@@ -40,11 +42,11 @@ public class RestaurantTestData {
     }
 
     public static Restaurant getNew() {
-        return new Restaurant(null, "new", LocalDateTime.now(), new Dish("new", 100));
+        return new Restaurant(null, "new", LocalDateTime.now(), new Dish(created, "new", 100));
     }
 
     public static Restaurant getUpdated() {
-        return new Restaurant(REST1_ID, rest1.getName(), rest1.getCreated(), new Dish("new", 1000));
+        return new Restaurant(REST1_ID, rest1.getName(), rest1.getCreated(), new Dish(created, "new", 1000));
     }
 
 

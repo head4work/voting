@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.homeproject.voting.model.Restaurant;
-import ru.homeproject.voting.repository.datajpa.DataJpaRestaurantRepository;
+import ru.homeproject.voting.repository.datajpa.CrudRestaurantRepository;
 import ru.homeproject.voting.to.RestaurantTo;
 import ru.homeproject.voting.web.vote.AbstractVoteController;
 
@@ -18,8 +18,8 @@ import java.util.List;
 public class RestaurantRestController extends AbstractRestaurantController {
     protected static final String REST_URL = "/rest/admin/restaurants";
 
-    public RestaurantRestController(DataJpaRestaurantRepository repository, AbstractVoteController vote) {
-        super(repository, vote);
+    public RestaurantRestController(CrudRestaurantRepository crudRestaurantRepository, AbstractVoteController vote) {
+        super(crudRestaurantRepository, vote);
     }
 
     @PostMapping(value = REST_URL, consumes = MediaType.APPLICATION_JSON_VALUE)

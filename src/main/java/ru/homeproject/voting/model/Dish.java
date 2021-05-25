@@ -1,10 +1,16 @@
 package ru.homeproject.voting.model;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 
 @Embeddable
 public class Dish {
+
+    @Column(name = "created", nullable = false, columnDefinition = "date default now()")
+    @NotNull
+    private LocalDate created;
 
     @NotBlank
     @Size(max = 100)
@@ -18,7 +24,8 @@ public class Dish {
     public Dish() {
     }
 
-    public Dish(String name, Integer price) {
+    public Dish(@NotNull LocalDate created, String name, Integer price) {
+        this.created = created;
         this.name = name;
         this.price = price;
     }
@@ -39,10 +46,19 @@ public class Dish {
         this.name = name;
     }
 
+    public LocalDate getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDate created) {
+        this.created = created;
+    }
+
     @Override
     public String toString() {
         return "Dish{" +
-                "name='" + name + '\'' +
+                "created=" + created +
+                ", name='" + name + '\'' +
                 ", price=" + price +
                 '}';
     }
