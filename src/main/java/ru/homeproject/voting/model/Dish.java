@@ -1,25 +1,29 @@
 package ru.homeproject.voting.model;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.validation.constraints.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Embeddable
-public class Dish {
+@Entity
+@Table(name = "dishes")
+public class Dish extends AbstractNamedEntity {
 
     @Column(name = "created", nullable = false, columnDefinition = "date default now()")
     @NotNull
     private LocalDate created;
 
-    @NotBlank
-    @Size(max = 100)
-    private String name;
-
     @NotNull
     @Min(value = 1, message = "Should not cost less 1 dollar")
     @Max(value = 100000, message = "Should not be more expensive than 100000")
     private Integer price;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 
     public Dish() {
     }
@@ -28,6 +32,15 @@ public class Dish {
         this.created = created;
         this.name = name;
         this.price = price;
+    }
+
+    @JsonBackReference
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public Integer getPrice() {

@@ -1,11 +1,11 @@
 package ru.homeproject.voting.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,12 +26,8 @@ public class Restaurant extends AbstractNamedEntity {
     private LocalDateTime created;
 
     @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(
-            name = "dishes",
-            joinColumns = @JoinColumn(name = "restaurant_id")
-    )
-    private List<Dish> menu = new ArrayList<>();
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.EAGER)
+    private List<Dish> menu;
 
     public Restaurant() {
     }
@@ -56,6 +52,7 @@ public class Restaurant extends AbstractNamedEntity {
         this.created = created;
     }
 
+    @JsonManagedReference
     public List<Dish> getMenu() {
         return menu;
     }

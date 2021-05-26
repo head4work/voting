@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.homeproject.voting.model.AbstractBaseEntity.START_SEQ;
 
@@ -20,10 +21,13 @@ public class RestaurantTestData {
             .usingIgnoringFieldsComparator(RestaurantTo.class, "created", "menu");
     public static final ru.homeproject.voting.TestMatcher<Restaurant> RESTAURANT_TEST_MATCHER = ru.homeproject.voting.TestMatcher
             .usingIgnoringFieldsComparator(Restaurant.class, "created", "menu");
+    public static final ru.homeproject.voting.TestMatcher<Dish> DISH_TEST_MATCHER = ru.homeproject.voting.TestMatcher
+            .usingIgnoringFieldsComparator(Dish.class, "id", "restaurant");
 
 
     public static final int REST1_ID = START_SEQ + 2;
     public static final int NOT_FOUND = 10;
+    public static final int DISH1_ID = START_SEQ + 4;
     private static LocalDate created = LocalDate.now();
     public static final Restaurant rest1 = new Restaurant(REST1_ID, "name1", LocalDateTime.now(), new Dish(created, "soup", 500));
     public static final Restaurant rest2 = new Restaurant(REST1_ID + 1, "name2", LocalDateTime.now(), new Dish(created, "rice", 500),
@@ -31,6 +35,11 @@ public class RestaurantTestData {
 
     public static List<Restaurant> getRestaurantsList() {
         return Arrays.asList(rest1, rest2);
+    }
+
+    public static List<Dish> getDishesList() {
+        return getRestaurantsList().stream().map(Restaurant::getMenu)
+                .flatMap(List::stream).collect(Collectors.toList());
     }
 
     public static List<RestaurantTo> getSortedByVotes() {
@@ -46,7 +55,7 @@ public class RestaurantTestData {
     }
 
     public static Restaurant getUpdated() {
-        return new Restaurant(REST1_ID, rest1.getName(), rest1.getCreated(), new Dish(created, "new", 1000));
+        return new Restaurant(REST1_ID, rest1.getName(), rest1.getCreated(), new Dish(created, "updated", 1000));
     }
 
 

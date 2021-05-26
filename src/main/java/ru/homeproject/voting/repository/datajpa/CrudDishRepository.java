@@ -5,14 +5,17 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-import ru.homeproject.voting.model.Restaurant;
+import ru.homeproject.voting.model.Dish;
+
+import java.util.List;
 
 @Transactional(readOnly = true)
-public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Integer> {
+public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
     @Transactional
     @Modifying
-//    @Query(name = User.DELETE)
-    @Query("DELETE FROM Restaurant r WHERE r.id=:id")
+    @Query("DELETE FROM Dish d WHERE d.id=:id")
     int delete(@Param("id") int id);
 
+    @Query(" select d from Dish d where d.restaurant.id=:id order by d.created desc ")
+    List<Dish> getAllByRestaurant(@Param("id") int id);
 }
